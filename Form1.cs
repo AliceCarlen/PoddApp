@@ -16,5 +16,20 @@ namespace PoddApp
         {
             InitializeComponent();
         }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonLaggTill_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
