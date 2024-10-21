@@ -41,5 +41,10 @@ namespace PoddApp
         {
 
         }
+
+        private void comboBoxKategori_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
