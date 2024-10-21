@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PoddApp.BLL;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,12 @@ namespace PoddApp
 {
     public partial class Form1 : Form
     {
+        private KategoriManager kategoriManager;
         public Form1()
         {
             InitializeComponent();
+            kategoriManager = new KategoriManager();
+            FyllKategoriComboBox();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -45,6 +49,13 @@ namespace PoddApp
         private void comboBoxKategori_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void FyllKategoriComboBox()
+        {
+            List<string> kategorier = kategoriManager.HamtaKategorier();
+            comboBoxKategori.Items.Clear();
+            comboBoxKategori.Items.AddRange(kategorier.ToArray());
         }
     }
 }

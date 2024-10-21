@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLL\BLL.Kategorier.cs" />
+    <Compile Include="DAL\DAL.Kategorier.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
