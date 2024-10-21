@@ -79,7 +79,7 @@
             // buttonLaggTillKategori
             // 
             this.buttonLaggTillKategori.Location = new System.Drawing.Point(786, 373);
-            this.buttonLaggTillKategori.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonLaggTillKategori.Margin = new System.Windows.Forms.Padding(2);
             this.buttonLaggTillKategori.Name = "buttonLaggTillKategori";
             this.buttonLaggTillKategori.Size = new System.Drawing.Size(65, 24);
             this.buttonLaggTillKategori.TabIndex = 2;
@@ -225,7 +225,7 @@
             // 
             this.comboBoxKategori.FormattingEnabled = true;
             this.comboBoxKategori.Location = new System.Drawing.Point(27, 136);
-            this.comboBoxKategori.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBoxKategori.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxKategori.Name = "comboBoxKategori";
             this.comboBoxKategori.Size = new System.Drawing.Size(191, 24);
             this.comboBoxKategori.TabIndex = 18;
@@ -244,7 +244,7 @@
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(27, 182);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(191, 22);
             this.textBox1.TabIndex = 20;
@@ -264,10 +264,11 @@
             // 
             this.comboBoxFiltreraKategori.FormattingEnabled = true;
             this.comboBoxFiltreraKategori.Location = new System.Drawing.Point(229, 286);
-            this.comboBoxFiltreraKategori.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBoxFiltreraKategori.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxFiltreraKategori.Name = "comboBoxFiltreraKategori";
             this.comboBoxFiltreraKategori.Size = new System.Drawing.Size(110, 24);
             this.comboBoxFiltreraKategori.TabIndex = 22;
+            this.comboBoxFiltreraKategori.SelectedIndexChanged += new System.EventHandler(this.comboBoxFiltreraKategori_SelectedIndexChanged);
             // 
             // labelFiltreraKategori
             // 
