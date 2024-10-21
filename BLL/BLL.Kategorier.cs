@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace PoddApp.BLL
 {
-    public class KategoriManager
+    public class KategoriManager //Fungerar som mellanhand mellan DAL och gränssnitt
     {
-        private KategoriDataAccess kategoriDataAccess;
+        private KategoriDataAccess kategoriDataAccess; //fält av typen KategoriDataAccess (DAL-lagret)
 
-        public KategoriManager()
+        public KategoriManager() //konstruktor som skapar en ny instans av KategoriDataAccess-klassen
         {
             kategoriDataAccess = new KategoriDataAccess();
         }
 
-        public List<string> HamtaKategorier()
+        public List<string> HamtaKategorier() //metodanrop från DAL
         {
             return kategoriDataAccess.HamtaKategorier();
         }

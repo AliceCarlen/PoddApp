@@ -13,12 +13,12 @@ namespace PoddApp
 {
     public partial class Form1 : Form
     {
-        private KategoriManager kategoriManager;
-        public Form1()
+        private KategoriManager kategoriManager; //fält som refererar till BLL-lagret
+        public Form1() //konstruktor som skapar en instans av BLL-lagret (KategoriManager)
         {
             InitializeComponent();
             kategoriManager = new KategoriManager();
-            FyllKategoriComboBox();
+            FyllKategoriComboBox(); //metod som fyller comboboxen med kategorier - se metodkropp längre ner
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -51,7 +51,7 @@ namespace PoddApp
 
         }
 
-        private void FyllKategoriComboBox()
+        private void FyllKategoriComboBox() //metod som fyller cb. Hämtar data från DAL-lagret med hjälp av mellanhanden BLL
         {
             List<string> kategorier = kategoriManager.HamtaKategorier();
             comboBoxKategori.Items.Clear();

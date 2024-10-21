@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PoddApp.DAL
 {
-    public class KategoriDataAccess
+    public class KategoriDataAccess //datalagret har här färdiga kategorier som ligger inom metoden HamtaKategorier.
     {
         public List<string> HamtaKategorier()
         {
