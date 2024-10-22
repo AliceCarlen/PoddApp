@@ -129,6 +129,7 @@
             this.listBoxRedigerakategorier.Name = "listBoxRedigerakategorier";
             this.listBoxRedigerakategorier.Size = new System.Drawing.Size(150, 148);
             this.listBoxRedigerakategorier.TabIndex = 7;
+            this.listBoxRedigerakategorier.SelectedIndexChanged += new System.EventHandler(this.listBoxRedigerakategorier_SelectedIndexChanged);
             // 
             // textBoxAndraKategori
             // 

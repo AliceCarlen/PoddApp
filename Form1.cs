@@ -20,6 +20,7 @@ namespace PoddApp
             kategoriManager = new KategoriManager();
             FyllKategoriComboBox(); //metod som fyller comboboxen med kategorier - se metodkropp längre ner
             FiltreraKategorierComboBox(); //metod som filterar kategorier
+            listBoxRedigeraKategorierFyll();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -69,6 +70,17 @@ namespace PoddApp
             List<string> kategorier = kategoriManager.HamtaKategorier();
             comboBoxFiltreraKategori.Items.Clear();
             comboBoxFiltreraKategori.Items.AddRange(kategorier.ToArray());
+        }
+
+        private void listBoxRedigerakategorier_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listBoxRedigeraKategorierFyll()
+        {
+            List<string> kategorier = kategoriManager.HamtaKategorier();
+            listBoxRedigerakategorier.Items.AddRange(kategorier.ToArray());
         }
     }
 }
