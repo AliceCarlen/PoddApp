@@ -20,5 +20,10 @@ namespace PoddApp.BLL
         {
             return kategoriDataAccess.HamtaKategorier();
         }
+
+        public void LaggTillKategori(string nyKategori)
+        {
+            kategoriDataAccess.LaggTillKategori(nyKategori); //metod som lägger till nyKategori i Datalagret
+        }
     }
 }

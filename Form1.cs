@@ -80,7 +80,29 @@ namespace PoddApp
         private void listBoxRedigeraKategorierFyll()
         {
             List<string> kategorier = kategoriManager.HamtaKategorier();
+            listBoxRedigerakategorier.Items.Clear();
             listBoxRedigerakategorier.Items.AddRange(kategorier.ToArray());
+        }
+
+        private void textBoxAndraKategori_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonLaggTillKategori_Click(object sender, EventArgs e)
+        {
+            string nyKategori = textBoxHanteraKategori.Text.Trim(); //trim tar bort oönskade mellanslag 
+            if (!string.IsNullOrEmpty(nyKategori))
+            {
+                kategoriManager.LaggTillKategori(nyKategori); //anropa metod i BLL-lagret
+                listBoxRedigeraKategorierFyll(); //fyller listboxen igen för att se den nya kategorin
+                textBoxHanteraKategori.Clear(); //rensar textbox efter att vi lagt till kategorin
+            }
+
+            else
+            {
+                MessageBox.Show("Ange en kategori.");
+            }
         }
     }
 }

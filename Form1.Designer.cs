@@ -36,7 +36,7 @@
             this.listViewPoddar = new System.Windows.Forms.ListView();
             this.labelRedigeraKategorier = new System.Windows.Forms.Label();
             this.listBoxRedigerakategorier = new System.Windows.Forms.ListBox();
-            this.textBoxAndraKategori = new System.Windows.Forms.TextBox();
+            this.textBoxHanteraKategori = new System.Windows.Forms.TextBox();
             this.buttonAndra = new System.Windows.Forms.Button();
             this.buttonTaBort = new System.Windows.Forms.Button();
             this.labelMinaKategorier = new System.Windows.Forms.Label();
@@ -85,6 +85,7 @@
             this.buttonLaggTillKategori.TabIndex = 2;
             this.buttonLaggTillKategori.Text = "Lägg till";
             this.buttonLaggTillKategori.UseVisualStyleBackColor = true;
+            this.buttonLaggTillKategori.Click += new System.EventHandler(this.buttonLaggTillKategori_Click);
             // 
             // textBoxUrl
             // 
@@ -131,12 +132,13 @@
             this.listBoxRedigerakategorier.TabIndex = 7;
             this.listBoxRedigerakategorier.SelectedIndexChanged += new System.EventHandler(this.listBoxRedigerakategorier_SelectedIndexChanged);
             // 
-            // textBoxAndraKategori
+            // textBoxHanteraKategori
             // 
-            this.textBoxAndraKategori.Location = new System.Drawing.Point(837, 332);
-            this.textBoxAndraKategori.Name = "textBoxAndraKategori";
-            this.textBoxAndraKategori.Size = new System.Drawing.Size(125, 22);
-            this.textBoxAndraKategori.TabIndex = 8;
+            this.textBoxHanteraKategori.Location = new System.Drawing.Point(837, 332);
+            this.textBoxHanteraKategori.Name = "textBoxHanteraKategori";
+            this.textBoxHanteraKategori.Size = new System.Drawing.Size(125, 22);
+            this.textBoxHanteraKategori.TabIndex = 8;
+            this.textBoxHanteraKategori.TextChanged += new System.EventHandler(this.textBoxAndraKategori_TextChanged);
             // 
             // buttonAndra
             // 
@@ -301,7 +303,7 @@
             this.Controls.Add(this.labelMinaKategorier);
             this.Controls.Add(this.buttonTaBort);
             this.Controls.Add(this.buttonAndra);
-            this.Controls.Add(this.textBoxAndraKategori);
+            this.Controls.Add(this.textBoxHanteraKategori);
             this.Controls.Add(this.listBoxRedigerakategorier);
             this.Controls.Add(this.labelRedigeraKategorier);
             this.Controls.Add(this.listViewPoddar);
@@ -327,7 +329,7 @@
         private System.Windows.Forms.ListView listViewPoddar;
         private System.Windows.Forms.Label labelRedigeraKategorier;
         private System.Windows.Forms.ListBox listBoxRedigerakategorier;
-        private System.Windows.Forms.TextBox textBoxAndraKategori;
+        private System.Windows.Forms.TextBox textBoxHanteraKategori;
         private System.Windows.Forms.Button buttonAndra;
         private System.Windows.Forms.Button buttonTaBort;
         private System.Windows.Forms.Label labelMinaKategorier;
