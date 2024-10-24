@@ -107,7 +107,7 @@ namespace PoddApp
 
         private void buttonAndra_Click(object sender, EventArgs e)
         {
-            string gammalKategori = comboBoxKategori.SelectedItem?.ToString(); // Hämta den valda kategorin
+            string gammalKategori = listBoxRedigerakategorier.SelectedItem?.ToString(); // Hämta den valda kategorin
             string nyKategori = textBoxHanteraKategori.Text.Trim(); // Hämta det nya namnet
 
             if (!string.IsNullOrEmpty(gammalKategori) && !string.IsNullOrEmpty(nyKategori))
@@ -121,6 +121,12 @@ namespace PoddApp
                 MessageBox.Show("Vänligen välj en kategori och ange ett nytt namn.");
             }
         }
+
+        private void buttonTaBort_Click(object sender, EventArgs e)
+        {
+            string gammalKategori = listBoxRedigerakategorier.SelectedItem?.ToString(); // Hämta den valda kategorin
+
+        }
     }
     }
-}
+

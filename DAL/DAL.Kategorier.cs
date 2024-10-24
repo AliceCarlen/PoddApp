@@ -30,11 +30,6 @@ namespace PoddApp.DAL
             }
         }
 
-        // private List<string> kategorier;
-
-        // public KategoriDataAccess() 
-        // {
-        //  kategorier = new List<string> { "Humor", "Hälsa", "Utbildning", "True crime", "Historia" };
 
 
         public List<string> HamtaKategorier() //returnerar en lista med kategorier
@@ -73,7 +68,7 @@ namespace PoddApp.DAL
             }
         }
 
-    }
+    
 
     public void AndraKategori(string gammalKategori, string nyKategori)
 
@@ -92,6 +87,16 @@ namespace PoddApp.DAL
             serializer.Serialize(fs, kategorier);
         }
     }
+
+        public void TaBortKategori(string gammalKategori)
+        {
+            var kategorier = HamtaKategorier();
+            int index = kategorier.IndexOf(gammalKategori); // Räknar i listan efter gammalkategori
+            if (index != -1)
+            {
+                kategorier.RemoveAt(index);
+            } //lägg till kod för xml och serialisera, se chat. men ev gör interface av det
+        }
 }
     
 }

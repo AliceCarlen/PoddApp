@@ -29,9 +29,15 @@ namespace PoddApp.BLL
         public void AndraKategori(string gammalKategori, string nyKategori)
         {
 
-        kategoriDataAccess.AndraKategori(nyKategori);
+            kategoriDataAccess.AndraKategori(gammalKategori, nyKategori);
 
         }
 
+        public void TaBortKategori(string gammalKategori)
+        {
+            kategoriDataAccess.TaBortKategori(gammalKategori);
+        }
+
     }
+}
 

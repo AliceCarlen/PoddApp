@@ -158,6 +158,7 @@
             this.buttonTaBort.TabIndex = 10;
             this.buttonTaBort.Text = "Ta bort";
             this.buttonTaBort.UseVisualStyleBackColor = true;
+            this.buttonTaBort.Click += new System.EventHandler(this.buttonTaBort_Click);
             // 
             // labelMinaKategorier
             // 
