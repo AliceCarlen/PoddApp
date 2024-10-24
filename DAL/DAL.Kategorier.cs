@@ -1,33 +1,78 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace PoddApp.DAL
 {
     public class KategoriDataAccess //datalagret har här färdiga kategorier som ligger inom metoden HamtaKategorier.
     {
 
-        private List<string> kategorier;
+        private const string KategoriFolder = "Kategorier"; //Filnamn för XML filen
+        private string KategoriFil;
 
-        public KategoriDataAccess() 
+        public KategoriDataAccess()
         {
-            kategorier = new List<string> { "Humor", "Hälsa", "Utbildning", "True crime", "Historia" };
+            // Hämta sökvägen till skrivbordet och kombinera med mappens namn
+            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string kategorierPath = Path.Combine(desktopPath, KategoriFolder);
+
+            // Sätt sökvägen till filen
+            KategoriFil = Path.Combine(kategorierPath, "kategorier.xml");
+
+            // Kontrollera och skapa mappen om den inte finns
+            if (!Directory.Exists(kategorierPath))
+            {
+                Directory.CreateDirectory(kategorierPath);
+            }
         }
+
+        // private List<string> kategorier;
+
+        // public KategoriDataAccess() 
+        // {
+        //  kategorier = new List<string> { "Humor", "Hälsa", "Utbildning", "True crime", "Historia" };
+
 
         public List<string> HamtaKategorier() //returnerar en lista med kategorier
         {
-            return kategorier;
+            if (!File.Exists(KategoriFil))
+            {
+                return new List<string> { "Humor", "Hälsa", "Utbildning", "True crime", "Historia" };
+            }
+
+            XmlSerializer serializer = new XmlSerializer(typeof(List<string>)); //Skapa en xmlSerializer som hanterar listan
+
+            using (FileStream fs = new FileStream(KategoriFil, FileMode.Open)) //Öppnar xml-filen för att läsa in data
+
+            {
+                return (List<string>)serializer.Deserialize(fs); //Deseriaiserar xml innehållet till en lista med Strings (Kategorier), den retuneras sedan
+            }
+
         }
 
         public void LaggTillKategori(string nyKategori) //lägger till ny kategori i listan
         {
+            var kategorier = HamtaKategorier();
+
+
             if (!string.IsNullOrEmpty(nyKategori))
             {
                 kategorier.Add(nyKategori);
             }
+
+            XmlSerializer serializer = new XmlSerializer(typeof(List<string>)); //Skapa en xmlSerializer som hanterar listan
+
+            using (FileStream fs = new FileStream(KategoriFil, FileMode.Create)) //Öppnar xml-filen för att läsa in data
+
+            {
+                serializer.Serialize(fs, kategorier);
+            }
         }
+
     }
     
 }
