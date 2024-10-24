@@ -148,6 +148,7 @@
             this.buttonAndra.TabIndex = 9;
             this.buttonAndra.Text = "Ändra";
             this.buttonAndra.UseVisualStyleBackColor = true;
+            this.buttonAndra.Click += new System.EventHandler(this.buttonAndra_Click);
             // 
             // buttonTaBort
             // 

@@ -104,5 +104,23 @@ namespace PoddApp
                 MessageBox.Show("Ange en kategori.");
             }
         }
+
+        private void buttonAndra_Click(object sender, EventArgs e)
+        {
+            string gammalKategori = comboBoxKategori.SelectedItem?.ToString(); // Hämta den valda kategorin
+            string nyKategori = textBoxHanteraKategori.Text.Trim(); // Hämta det nya namnet
+
+            if (!string.IsNullOrEmpty(gammalKategori) && !string.IsNullOrEmpty(nyKategori))
+            {
+                kategoriManager.AndraKategori(gammalKategori, nyKategori); // Anropa metoden i BLL-lagret
+                listBoxRedigeraKategorierFyll(); // Uppdatera listboxen
+                textBoxHanteraKategori.Clear(); // Rensa textfältet
+            }
+            else
+            {
+                MessageBox.Show("Vänligen välj en kategori och ange ett nytt namn.");
+            }
+        }
+    }
     }
 }

@@ -25,5 +25,13 @@ namespace PoddApp.BLL
         {
             kategoriDataAccess.LaggTillKategori(nyKategori); //metod som lägger till nyKategori i Datalagret
         }
+
+        public void AndraKategori(string gammalKategori, string nyKategori)
+        {
+
+        kategoriDataAccess.AndraKategori(nyKategori);
+
+        }
+
     }
-}
+

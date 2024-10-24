@@ -74,5 +74,24 @@ namespace PoddApp.DAL
         }
 
     }
+
+    public void AndraKategori(string gammalKategori, string nyKategori)
+
+    {
+        var kategorier = HamtaKategorier();
+        int index = kategorier.IndexOf(gammalKategori); // Räknar i listan efter gammalkategori
+        if (index != -1)
+        {
+            kategorier[index] = nyKategori; // Ändra namnet
+        }
+
+        XmlSerializer serializer = new XmlSerializer(typeof(List<string>));
+
+        using (FileStream fs = new FileStream(KategoriFil, FileMode.Create))
+        {
+            serializer.Serialize(fs, kategorier);
+        }
+    }
+}
     
 }
