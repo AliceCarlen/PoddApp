@@ -33,9 +33,9 @@ namespace PoddApp.BLL
 
         }
 
-        public void TaBortKategori(string gammalKategori)
+        public void TaBortKategori(string kategoriAttTaBort)
         {
-            kategoriDataAccess.TaBortKategori(gammalKategori);
+            kategoriDataAccess.TaBortKategori(kategoriAttTaBort);
         }
 
     }

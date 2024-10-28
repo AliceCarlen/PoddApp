@@ -44,7 +44,7 @@ namespace PoddApp.DAL
             using (FileStream fs = new FileStream(KategoriFil, FileMode.Open)) //Öppnar xml-filen för att läsa in data
 
             {
-                return (List<string>)serializer.Deserialize(fs); //Deseriaiserar xml innehållet till en lista med Strings (Kategorier), den retuneras sedan
+                return (List<string>)serializer.Deserialize(fs); //Deserialiserar xml innehållet till en lista med Strings (Kategorier), den retuneras sedan
             }
 
         }
@@ -88,14 +88,23 @@ namespace PoddApp.DAL
         }
     }
 
-        public void TaBortKategori(string gammalKategori)
+        public void TaBortKategori(string kategoriAttTaBort)
         {
             var kategorier = HamtaKategorier();
-            int index = kategorier.IndexOf(gammalKategori); // Räknar i listan efter gammalkategori
+            int index = kategorier.IndexOf(kategoriAttTaBort); // Räknar i listan efter gammalkategori
             if (index != -1)
             {
                 kategorier.RemoveAt(index);
-            } //lägg till kod för xml och serialisera, se chat. men ev gör interface av det
+
+                XmlSerializer serializer = new XmlSerializer(typeof(List<string>));
+
+                using (FileStream fs = new FileStream(KategoriFil, FileMode.Create))
+
+                {
+                    serializer.Serialize(fs, kategorier);
+                }
+
+            } 
         }
 }
     

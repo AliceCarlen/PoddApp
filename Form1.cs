@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace PoddApp
 {
     public partial class Form1 : Form
@@ -21,6 +22,7 @@ namespace PoddApp
             FyllKategoriComboBox(); //metod som fyller comboboxen med kategorier - se metodkropp längre ner
             FiltreraKategorierComboBox(); //metod som filterar kategorier
             listBoxRedigeraKategorierFyll();
+            
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -35,7 +37,32 @@ namespace PoddApp
 
         private void buttonLaggTill_Click(object sender, EventArgs e)
         {
+            string url = textBoxUrl.Text.Trim();  //hämta url från textrutan
+            if (!string.IsNullOrEmpty(url))
+            {
+                try
+                {
+                    PoddBLL poddBLL = new PoddBLL(); //skapar en instans av PoddBLL
+                    List<string> poddar = poddBLL.HamtaPoddar(url); //Hämta poddarna från BLL
+                    listViewPoddar.Items.Clear();
+                    
+                    //Skapar ListViewItem för varje podd och lägg till den i listview
+                    foreach (var podd in poddar)
+                    {
+                        listViewPoddar.Items.Add(new ListViewItem(podd));
+                    }
+                }
 
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Fel vid hämtning av poddar : {ex.Message}");
+                }
+            }
+
+            else
+            {
+                MessageBox.Show("Vänligen ange en giltig URL.");
+            }
         }
 
         private void label3_Click(object sender, EventArgs e)
@@ -124,9 +151,28 @@ namespace PoddApp
 
         private void buttonTaBort_Click(object sender, EventArgs e)
         {
-            string gammalKategori = listBoxRedigerakategorier.SelectedItem?.ToString(); // Hämta den valda kategorin
+            string kategoriAttTaBort = listBoxRedigerakategorier.SelectedItem?.ToString(); // Hämta den valda kategorin
+            if (!string.IsNullOrEmpty(kategoriAttTaBort))
 
+            {
+                DialogResult result = MessageBox.Show(
+                    $"Är du säker på att du vill ta bort kategorin \"{kategoriAttTaBort}\"?",
+                   "Bekräfta borttagning",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning);
+
+                //om användaren väler ja ska kategorin tas bort
+                if (result == DialogResult.Yes)
+                {
+                    kategoriManager.TaBortKategori(kategoriAttTaBort); //metod i BLL
+                    listBoxRedigeraKategorierFyll(); //uppdatera listan efter borttag
+                }
+            }
+            else
+            {
+                MessageBox.Show("Vänligen välj en kategori att ta bort.");
+            }
         }
     }
-    }
+}
 
