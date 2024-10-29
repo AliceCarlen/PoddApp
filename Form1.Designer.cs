@@ -48,7 +48,7 @@
             this.labelLaggTillPodd = new System.Windows.Forms.Label();
             this.comboBoxKategori = new System.Windows.Forms.ComboBox();
             this.labelTilldelaKategori = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxEgetNamn = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.comboBoxFiltreraKategori = new System.Windows.Forms.ComboBox();
             this.labelFiltreraKategori = new System.Windows.Forms.Label();
@@ -246,14 +246,14 @@
             this.labelTilldelaKategori.TabIndex = 19;
             this.labelTilldelaKategori.Text = "Tilldela kategori:";
             // 
-            // textBox1
+            // textBoxEgetNamn
             // 
-            this.textBox1.Location = new System.Drawing.Point(27, 182);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(191, 22);
-            this.textBox1.TabIndex = 20;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.textBoxEgetNamn.Location = new System.Drawing.Point(27, 182);
+            this.textBoxEgetNamn.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxEgetNamn.Name = "textBoxEgetNamn";
+            this.textBoxEgetNamn.Size = new System.Drawing.Size(191, 22);
+            this.textBoxEgetNamn.TabIndex = 20;
+            this.textBoxEgetNamn.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // label2
             // 
@@ -293,7 +293,7 @@
             this.Controls.Add(this.labelFiltreraKategori);
             this.Controls.Add(this.comboBoxFiltreraKategori);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textBoxEgetNamn);
             this.Controls.Add(this.labelTilldelaKategori);
             this.Controls.Add(this.comboBoxKategori);
             this.Controls.Add(this.labelLaggTillPodd);
@@ -343,7 +343,7 @@
         private System.Windows.Forms.Label labelLaggTillPodd;
         private System.Windows.Forms.ComboBox comboBoxKategori;
         private System.Windows.Forms.Label labelTilldelaKategori;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxEgetNamn;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox comboBoxFiltreraKategori;
         private System.Windows.Forms.Label labelFiltreraKategori;

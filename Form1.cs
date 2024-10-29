@@ -1,4 +1,5 @@
 ﻿using PoddApp.BLL;
+using PoddApp.DAL;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,13 +16,16 @@ namespace PoddApp
     public partial class Form1 : Form
     {
         private KategoriManager kategoriManager; //fält som refererar till BLL-lagret
+        private PoddDAL poddDAL;
         public Form1() //konstruktor som skapar en instans av BLL-lagret (KategoriManager)
         {
             InitializeComponent();
             kategoriManager = new KategoriManager();
+            poddDAL = new PoddDAL();
             FyllKategoriComboBox(); //metod som fyller comboboxen med kategorier - se metodkropp längre ner
             FiltreraKategorierComboBox(); //metod som filterar kategorier
             listBoxRedigeraKategorierFyll();
+           
             
         }
 
@@ -37,31 +41,32 @@ namespace PoddApp
 
         private void buttonLaggTill_Click(object sender, EventArgs e)
         {
+
             string url = textBoxUrl.Text.Trim();  //hämta url från textrutan
-            if (!string.IsNullOrEmpty(url))
+            string egetNamn = textBoxEgetNamn.Text;
+
+            try
             {
-                try
+                poddDAL.HamtaPoddarURL(url, egetNamn);
+
+                listViewPoddar.Items.Clear();
+                List<PoddInfo> poddar = poddDAL.HämtaAllaPoddar();
+
+                foreach (var podd in poddar)
                 {
-                    PoddBLL poddBLL = new PoddBLL(); //skapar en instans av PoddBLL
-                    List<string> poddar = poddBLL.HamtaPoddar(url); //Hämta poddarna från BLL
-                    listViewPoddar.Items.Clear();
-                    
-                    //Skapar ListViewItem för varje podd och lägg till den i listview
-                    foreach (var podd in poddar)
+                    listViewPoddar.Items.Add(new ListViewItem(new[]
                     {
-                        listViewPoddar.Items.Add(new ListViewItem(podd));
+                        podd.EgetNamn,
+                        podd.PoddTitel,
+                        podd.AntalAvsnitt.ToString()
                     }
+                    ));
                 }
 
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Fel vid hämtning av poddar : {ex.Message}");
-                }
             }
-
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Vänligen ange en giltig URL.");
+                MessageBox.Show(ex.Message);
             }
         }
 
