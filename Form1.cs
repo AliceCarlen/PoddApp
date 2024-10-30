@@ -226,33 +226,34 @@ namespace PoddApp
             }
         }
 
-    }
 
-    private void LasInPoddarOchFyllListView()
-    {
-        PoddDAL.LasInPoddarFranXML();
 
-        listViewPoddar.Items.Clear();
-        List<PoddInfo> poddar = poddDAL.HämtaAllaPoddar();
-
-        foreach (var podd in poddar)
+        private void LasInPoddarOchFyllListView()
         {
-            listViewPoddar.Items.Add(new ListViewItem(new[]
+            poddDAL.LasInPoddarFranXML();
+
+            listViewPoddar.Items.Clear();
+            List<PoddInfo> poddar = poddDAL.HämtaAllaPoddar();
+
+            foreach (var podd in poddar)
             {
+                listViewPoddar.Items.Add(new ListViewItem(new[]
+                {
                 podd.EgetNamn,
                 podd.PoddTitel,
                 podd.AntalAvsnitt.ToString(),
                 podd.Kategori,
                 podd.Url
             }));
+            }
         }
-    }
 
-    private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-    {
-        poddDAL.SparaPoddarTillXML();
-    }
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            poddDAL.SparaPoddarTillXML();
+        }
 
+    }
 }
 
 
