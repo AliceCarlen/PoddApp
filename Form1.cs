@@ -36,9 +36,9 @@ namespace PoddApp
             listViewPoddar.Columns.Add("Poddtitel", -2, HorizontalAlignment.Left);
             listViewPoddar.Columns.Add("Antal avsnitt", -2, HorizontalAlignment.Left);
             listViewPoddar.Columns.Add("Kategori", -2, HorizontalAlignment.Left);
+            listViewPoddar.Columns.Add("URL", -2, HorizontalAlignment.Left);
 
 
-            
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -78,7 +78,8 @@ namespace PoddApp
                         podd.EgetNamn,
                         podd.PoddTitel,
                         podd.AntalAvsnitt.ToString(),
-                        podd.Kategori
+                        podd.Kategori,
+                        podd.Url
                     }
                     ));
                 }
@@ -205,7 +206,7 @@ namespace PoddApp
                 {
                     var selectedItem = listViewPoddar.SelectedItems[0]; // Hämta det valda objektet
                     string poddTitel = selectedItem.SubItems[1].Text; // Hämta poddtitel från listView
-                string url = "";
+                string url = selectedItem.SubItems[4].Text;
 
                     // Hämta avsnitt för den valda podden
                     var avsnitt = poddBLL.HamtaAvsnittForPodd(poddTitel, url); // Skapa en metod i DAL som hämtar avsnitt
