@@ -25,19 +25,9 @@ namespace PoddApp
             FyllKategoriComboBox(); //metod som fyller comboboxen med kategorier - se metodkropp längre ner
             FiltreraKategorierComboBox(); //metod som filterar kategorier
             listBoxRedigeraKategorierFyll();
-
-            //Konfigurera kolumner för listViewPoddar
-            listViewPoddar.View = View.Details;
-            listViewPoddar.Columns.Add("Tilldelat namn", -2, HorizontalAlignment.Left);
-            listViewPoddar.Columns.Add("Poddtitel", -2, HorizontalAlignment.Left);
-            listViewPoddar.Columns.Add("Antal avsnitt", -2, HorizontalAlignment.Left);
-
-
+           
             
         }
-
-
-
 
         private void label1_Click(object sender, EventArgs e)
         {
@@ -54,11 +44,11 @@ namespace PoddApp
 
             string url = textBoxUrl.Text.Trim();  //hämta url från textrutan
             string egetNamn = textBoxEgetNamn.Text;
+            string kategori = comboBoxFiltreraKategori
 
             try
             {
                 poddDAL.HamtaPoddarURL(url, egetNamn);
-                poddDAL.SparaPoddarTillXML();
 
                 listViewPoddar.Items.Clear();
                 List<PoddInfo> poddar = poddDAL.HämtaAllaPoddar();
