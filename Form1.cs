@@ -28,6 +28,8 @@ namespace PoddApp
             listBoxRedigeraKategorierFyll();
             listViewPoddar.SelectedIndexChanged += listViewPoddar_SelectedIndexChanged;
             poddBLL = new PoddBLL();
+            LasInPoddarOchFyllListView();
+            this.FormClosing += Form1_FormClosing;
 
             //Konfigurera kolumner för listViewPoddar
             listViewPoddar.View = View.Details;
@@ -59,7 +61,7 @@ namespace PoddApp
             string kategori = comboBoxKategori.SelectedItem?.ToString();
 
             //kontrollera att kategori har valts
-            if(string.IsNullOrEmpty(kategori))
+            if (string.IsNullOrEmpty(kategori))
             {
                 MessageBox.Show("Vänligen välj en kategori");
                 return;
@@ -83,6 +85,8 @@ namespace PoddApp
                     }
                     ));
                 }
+
+                poddDAL.SparaPoddarTillXML();
 
             }
             catch (Exception ex)
@@ -202,27 +206,53 @@ namespace PoddApp
 
         private void listViewPoddar_SelectedIndexChanged(object sender, EventArgs e)
         {
-                if (listViewPoddar.SelectedItems.Count > 0) // Kontrollera om det finns ett valt objekt
-                {
-                    var selectedItem = listViewPoddar.SelectedItems[0]; // Hämta det valda objektet
-                    string poddTitel = selectedItem.SubItems[1].Text; // Hämta poddtitel från listView
+            if (listViewPoddar.SelectedItems.Count > 0) // Kontrollera om det finns ett valt objekt
+            {
+                var selectedItem = listViewPoddar.SelectedItems[0]; // Hämta det valda objektet
+                string poddTitel = selectedItem.SubItems[1].Text; // Hämta poddtitel från listView
                 string url = selectedItem.SubItems[4].Text;
 
-                    // Hämta avsnitt för den valda podden
-                    var avsnitt = poddBLL.HamtaAvsnittForPodd(poddTitel, url); // Skapa en metod i DAL som hämtar avsnitt
+                // Hämta avsnitt för den valda podden
+                var avsnitt = poddBLL.HamtaAvsnittForPodd(poddTitel, url); // Skapa en metod i DAL som hämtar avsnitt
 
-                    // Rensa tidigare avsnitt i listbox
-                    listBoxAvsnitt.Items.Clear();
+                // Rensa tidigare avsnitt i listbox
+                listBoxAvsnitt.Items.Clear();
 
-                    // Lägg till avsnitt i listbox
-                    foreach (var avsnittItem in avsnitt)
-                    {
-                        listBoxAvsnitt.Items.Add(avsnittItem); // Anta att avsnittItem är en sträng med avsnittsinformation
-                    }
+                // Lägg till avsnitt i listbox
+                foreach (var avsnittItem in avsnitt)
+                {
+                    listBoxAvsnitt.Items.Add(avsnittItem); // Anta att avsnittItem är en sträng med avsnittsinformation
                 }
             }
+        }
 
+    }
+
+    private void LasInPoddarOchFyllListView()
+    {
+        PoddDAL.LasInPoddarFranXML();
+
+        listViewPoddar.Items.Clear();
+        List<PoddInfo> poddar = poddDAL.HämtaAllaPoddar();
+
+        foreach (var podd in poddar)
+        {
+            listViewPoddar.Items.Add(new ListViewItem(new[]
+            {
+                podd.EgetNamn,
+                podd.PoddTitel,
+                podd.AntalAvsnitt.ToString(),
+                podd.Kategori,
+                podd.Url
+            }));
         }
     }
+
+    private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+    {
+        poddDAL.SparaPoddarTillXML();
+    }
+
+}
 
 
