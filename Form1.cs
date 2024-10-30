@@ -31,6 +31,7 @@ namespace PoddApp
             listViewPoddar.Columns.Add("Tilldelat namn", -2, HorizontalAlignment.Left);
             listViewPoddar.Columns.Add("Poddtitel", -2, HorizontalAlignment.Left);
             listViewPoddar.Columns.Add("Antal avsnitt", -2, HorizontalAlignment.Left);
+            listViewPoddar.Columns.Add("Kategori", -2, HorizontalAlignment.Left);
 
 
             
