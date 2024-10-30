@@ -65,24 +65,16 @@ namespace PoddApp
                 {
                     SyndicationFeed feed = SyndicationFeed.Load(xmlReader);
 
-                    //string poddTitel = feed.Title.Text;
-                    foreach (SyndicationItem item in feed.Items)
+                    // Skapa ett enda PoddInfo-objekt för podden
+                    PoddInfo nyPodd = new PoddInfo
                     {
-                        // Skapa ett nytt Podd-objekt
-                        PoddInfo nyPodd = new PoddInfo
-
-
-                        {
-                            EgetNamn = egetNamn,
-                            PoddTitel = item.Title.Text,
-                            AntalAvsnitt = feed.Items.Count(), // Räkna avsnitt
-                            /*Kategori = "Exempelkategori"*/ // Lägg till logik för att hämta kategori om möjligt
-                        };
-                        poddar.Add(nyPodd); // Lägg till podden i listan
-                    }
+                        EgetNamn = egetNamn,
+                        PoddTitel = feed.Title.Text,
+                        AntalAvsnitt = feed.Items.Count()
+                    };
+                    poddar.Add(nyPodd);
                 }
             }
-
             catch (Exception ex)
             {
                 throw new Exception($"Fel vid hämtning av poddar: {ex.Message}");
@@ -90,11 +82,71 @@ namespace PoddApp
 
             return poddar; // Returnera listan med poddar
         }
+        //    try
+        //    {
+        //        using (XmlReader xmlReader = XmlReader.Create(url))
+        //        {
+        //            SyndicationFeed feed = SyndicationFeed.Load(xmlReader);
+
+        //            //string poddTitel = feed.Title.Text;
+        //            foreach (SyndicationItem item in feed.Items)
+        //            {
+        //                // Skapa ett nytt Podd-objekt
+        //                PoddInfo nyPodd = new PoddInfo
+
+
+        //                {
+        //                    EgetNamn = egetNamn,
+        //                    PoddTitel = item.Title.Text,
+        //                    AntalAvsnitt = feed.Items.Count(), // Räkna avsnitt
+        //                    /*Kategori = "Exempelkategori"*/ // Lägg till logik för att hämta kategori om möjligt
+        //                };
+        //                poddar.Add(nyPodd); // Lägg till podden i listan
+        //            }
+        //        }
+        //    }
+
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception($"Fel vid hämtning av poddar: {ex.Message}");
+        //    }
+
+        //    return poddar; // Returnera listan med poddar
+        //}
 
         public List<PoddInfo> HämtaAllaPoddar()
         {
             return poddar; // Metod för att hämta den aktuella listan av poddar
         }
 
+        public void SparaPoddarTillXML()
+        {
+            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string poddFilPath = Path.Combine(desktopPath, "poddar.xml");
+
+            XmlSerializer serializer = new XmlSerializer(typeof(List<PoddInfo>));
+            using (FileStream fs = new FileStream(poddFilPath, FileMode.Create))
+            {
+                serializer.Serialize(fs, poddar);
+            }
+        }
+
+        public void LasInPoddarFranXML()
+        {
+            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string poddFilPath = Path.Combine(desktopPath, "poddar.xml");
+
+            if (File.Exists(poddFilPath))
+            {
+                XmlSerializer serializer = new XmlSerializer(typeof(List<PoddInfo>));
+                using (FileStream fs = new FileStream(poddFilPath, FileMode.Open))
+                {
+                    poddar = (List<PoddInfo>)serializer.Deserialize(fs);
+                }
+            }
+        }
     }
 }
+
+    
+

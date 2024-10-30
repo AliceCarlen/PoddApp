@@ -56,7 +56,7 @@
             // 
             // buttonLaggTill
             // 
-            this.buttonLaggTill.Location = new System.Drawing.Point(79, 213);
+            this.buttonLaggTill.Location = new System.Drawing.Point(284, 145);
             this.buttonLaggTill.Name = "buttonLaggTill";
             this.buttonLaggTill.Size = new System.Drawing.Size(75, 26);
             this.buttonLaggTill.TabIndex = 0;
@@ -107,11 +107,12 @@
             // listViewPoddar
             // 
             this.listViewPoddar.HideSelection = false;
-            this.listViewPoddar.Location = new System.Drawing.Point(27, 262);
+            this.listViewPoddar.Location = new System.Drawing.Point(27, 209);
             this.listViewPoddar.Name = "listViewPoddar";
-            this.listViewPoddar.Size = new System.Drawing.Size(191, 270);
+            this.listViewPoddar.Size = new System.Drawing.Size(463, 323);
             this.listViewPoddar.TabIndex = 5;
             this.listViewPoddar.UseCompatibleStateImageBehavior = false;
+            this.listViewPoddar.SelectedIndexChanged += new System.EventHandler(this.listViewPoddar_SelectedIndexChanged);
             // 
             // labelRedigeraKategorier
             // 
@@ -173,7 +174,7 @@
             // 
             this.Avsnitt.FormattingEnabled = true;
             this.Avsnitt.ItemHeight = 16;
-            this.Avsnitt.Location = new System.Drawing.Point(429, 248);
+            this.Avsnitt.Location = new System.Drawing.Point(543, 245);
             this.Avsnitt.Name = "Avsnitt";
             this.Avsnitt.Size = new System.Drawing.Size(169, 116);
             this.Avsnitt.TabIndex = 12;
@@ -181,7 +182,7 @@
             // labelAvsnitt
             // 
             this.labelAvsnitt.AutoSize = true;
-            this.labelAvsnitt.Location = new System.Drawing.Point(426, 229);
+            this.labelAvsnitt.Location = new System.Drawing.Point(587, 223);
             this.labelAvsnitt.Name = "labelAvsnitt";
             this.labelAvsnitt.Size = new System.Drawing.Size(49, 16);
             this.labelAvsnitt.TabIndex = 13;
@@ -190,7 +191,7 @@
             // labelBeskrivning
             // 
             this.labelBeskrivning.AutoSize = true;
-            this.labelBeskrivning.Location = new System.Drawing.Point(426, 373);
+            this.labelBeskrivning.Location = new System.Drawing.Point(573, 373);
             this.labelBeskrivning.Name = "labelBeskrivning";
             this.labelBeskrivning.Size = new System.Drawing.Size(80, 16);
             this.labelBeskrivning.TabIndex = 14;
@@ -198,7 +199,7 @@
             // 
             // textBoxBeskrivning
             // 
-            this.textBoxBeskrivning.Location = new System.Drawing.Point(429, 401);
+            this.textBoxBeskrivning.Location = new System.Drawing.Point(543, 396);
             this.textBoxBeskrivning.Name = "textBoxBeskrivning";
             this.textBoxBeskrivning.Size = new System.Drawing.Size(169, 22);
             this.textBoxBeskrivning.TabIndex = 15;
@@ -268,7 +269,7 @@
             // comboBoxFiltreraKategori
             // 
             this.comboBoxFiltreraKategori.FormattingEnabled = true;
-            this.comboBoxFiltreraKategori.Location = new System.Drawing.Point(229, 286);
+            this.comboBoxFiltreraKategori.Location = new System.Drawing.Point(556, 136);
             this.comboBoxFiltreraKategori.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxFiltreraKategori.Name = "comboBoxFiltreraKategori";
             this.comboBoxFiltreraKategori.Size = new System.Drawing.Size(110, 24);
@@ -278,7 +279,7 @@
             // labelFiltreraKategori
             // 
             this.labelFiltreraKategori.AutoSize = true;
-            this.labelFiltreraKategori.Location = new System.Drawing.Point(225, 262);
+            this.labelFiltreraKategori.Location = new System.Drawing.Point(550, 104);
             this.labelFiltreraKategori.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelFiltreraKategori.Name = "labelFiltreraKategori";
             this.labelFiltreraKategori.Size = new System.Drawing.Size(103, 16);
