@@ -131,10 +131,35 @@ namespace PoddApp
                 
                 foreach (var item in feed.Items)
                 {
-                    avsnitt.Add(new AvsnittInfo
+                        string beskrivning = item.Summary?.Text;
+
+                        // Om beskrivning är tom, kontrollera om det finns andra relevanta fält
+                        if (string.IsNullOrEmpty(beskrivning))
+                        {
+                            // Alternativ 1: Hämta från <itunes:summary> om det finns
+                            var itunesSummary = item.ElementExtensions
+                                .FirstOrDefault(ext => ext.OuterName == "summary" && ext.OuterNamespace == "http://www.itunes.com/dtds/podcast-1.0.dtd");
+
+                            if (itunesSummary != null)
+                            {
+                                beskrivning = itunesSummary.GetObject<string>();
+                            }
+
+                            // Alternativ 2: Hämta från <description> om den används istället
+                            var description = item.ElementExtensions
+                                .FirstOrDefault(ext => ext.OuterName == "description");
+
+                            if (description != null && string.IsNullOrEmpty(beskrivning))
+                            {
+                                beskrivning = description.GetObject<string>();
+                            }
+                        }
+
+                        avsnitt.Add(new AvsnittInfo
                     {
                         PoddTitel = feed.Title.Text,
                         AvsnittTitel = item.Title.Text,
+                        Beskrivning = item.Summary.Text
 
                     });
                         

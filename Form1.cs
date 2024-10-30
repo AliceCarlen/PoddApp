@@ -223,10 +223,18 @@ namespace PoddApp
                 {
                     listBoxAvsnitt.Items.Add(avsnittItem); // Anta att avsnittItem är en sträng med avsnittsinformation
                 }
+
+                //    listBoxAvsnitt.SelectedIndexChanged += (s, args) =>
+                //    {
+                //        if (listBoxAvsnitt.SelectedItem is AvsnittInfo selectedAvsnitt)
+                //        {
+                //            textBoxBeskrivning.Text = selectedAvsnitt.Beskrivning; // Visa beskrivningen
+                //        }
+                //    };
+                //}
             }
         }
-
-
+    
 
         private void LasInPoddarOchFyllListView()
         {
@@ -253,6 +261,27 @@ namespace PoddApp
             poddDAL.SparaPoddarTillXML();
         }
 
+        private void textBoxBeskrivning_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listBoxAvsnitt_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //listBoxAvsnitt.SelectedIndexChanged += (s, args) =>
+            {
+                // Kontrollera om det valda objektet är av typen AvsnittInfo
+                if (listBoxAvsnitt.SelectedItem is AvsnittInfo selectedAvsnitt)
+                {
+                    // Fyll textBoxBeskrivning med avsnittets beskrivning
+                    textBoxBeskrivning.Text = selectedAvsnitt.Beskrivning;
+                }
+                else
+                {
+                    textBoxBeskrivning.Clear(); // Rensa om inget är valt
+                }
+            };
+        }
     }
 }
 
