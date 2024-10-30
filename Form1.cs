@@ -25,7 +25,15 @@ namespace PoddApp
             FyllKategoriComboBox(); //metod som fyller comboboxen med kategorier - se metodkropp längre ner
             FiltreraKategorierComboBox(); //metod som filterar kategorier
             listBoxRedigeraKategorierFyll();
-           
+
+            //Konfigurera kolumner för listViewPoddar
+            listViewPoddar.View = View.Details;
+            listViewPoddar.Columns.Add("Tilldelat namn", -2, HorizontalAlignment.Left);
+            listViewPoddar.Columns.Add("Poddtitel", -2, HorizontalAlignment.Left);
+            listViewPoddar.Columns.Add("Antal avsnitt", -2, HorizontalAlignment.Left);
+            listViewPoddar.Columns.Add("Kategori", -2, HorizontalAlignment.Left);
+
+
             
         }
 
