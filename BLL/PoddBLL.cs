@@ -27,10 +27,10 @@ namespace PoddApp
      
         }
 
-        public List<string> HamtaAvsnittForPodd(string poddTitel)
+        public List<string> HamtaAvsnittForPodd(string poddTitel, string url)
         {
             // Hämta avsnitt från DAL baserat på poddTitel
-            var avsnitt = poddDAL.HamtaAvsnittForPodd(poddTitel);
+            var avsnitt = poddDAL.HamtaAvsnittForPodd(poddTitel, url);
             return avsnitt.Select(a => a.AvsnittTitel).ToList(); // Returnera en lista med avsnitttitlar
         }
 

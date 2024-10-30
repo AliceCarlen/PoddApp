@@ -71,7 +71,8 @@ namespace PoddApp
                         EgetNamn = egetNamn,
                         PoddTitel = feed.Title.Text,
                         AntalAvsnitt = feed.Items.Count(),
-                        Kategori = kategori
+                        Kategori = kategori,
+                        Url = url
                     };
                     poddar.Add(nyPodd);
                 }
@@ -148,14 +149,24 @@ namespace PoddApp
         return avsnitt;
     }
 
-        
-    //public List<AvsnittInfo> HamtaAvsnittForPodd(string poddTitel)
-    //{
-    //    // Filtrera avsnitt baserat på poddTitel
-    //    var avsnitt = avsnittData.FindAll(a => a.PoddTitel.Equals(poddTitel, StringComparison.OrdinalIgnoreCase));
-    //    return avsnitt; // Returnera en lista med avsnitt för den angivna podden
-    //}
-}
+
+        public List<AvsnittInfo> HamtaAvsnittForPodd(string poddTitel, string url)
+        {
+            //var avsnitt = new List<AvsnittInfo>();
+            //foreach (var podd in poddar)
+            //{
+            //    if (podd.PoddTitel.Equals(poddTitel, StringComparison.OrdinalIgnoreCase))
+            //    {
+            //        avsnitt = HamtaAvsnittRSS(podd.Url); // Vi anropar HamtaAvsnittRSS baserat på poddens URL.
+            //        break;
+            //    }
+            //}
+            // return avsnitt;
+            return HamtaAvsnittRSS(url)
+                 .Where(a => a.PoddTitel.Equals(poddTitel, StringComparison.OrdinalIgnoreCase))
+                 .ToList();
+        }
+    }
 }
 
 

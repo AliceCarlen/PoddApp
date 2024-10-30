@@ -12,6 +12,8 @@ namespace PoddApp.DAL
         public string EgetNamn {  get; set; }
         public int AntalAvsnitt { get; set; } //kan inte ändras av användaren
         public string Kategori { get; set; }
+
+        public string Url { get; set; }
     }
 
     

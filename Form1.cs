@@ -17,6 +17,7 @@ namespace PoddApp
     {
         private KategoriManager kategoriManager; //fält som refererar till BLL-lagret
         private PoddDAL poddDAL;
+        private PoddBLL poddBLL;
         public Form1() //konstruktor som skapar en instans av BLL-lagret (KategoriManager)
         {
             InitializeComponent();
@@ -26,9 +27,11 @@ namespace PoddApp
             FiltreraKategorierComboBox(); //metod som filterar kategorier
             listBoxRedigeraKategorierFyll();
             listViewPoddar.SelectedIndexChanged += listViewPoddar_SelectedIndexChanged;
+            poddBLL = new PoddBLL();
 
             //Konfigurera kolumner för listViewPoddar
             listViewPoddar.View = View.Details;
+            listViewPoddar.FullRowSelect = true;
             listViewPoddar.Columns.Add("Tilldelat namn", -2, HorizontalAlignment.Left);
             listViewPoddar.Columns.Add("Poddtitel", -2, HorizontalAlignment.Left);
             listViewPoddar.Columns.Add("Antal avsnitt", -2, HorizontalAlignment.Left);
@@ -200,11 +203,12 @@ namespace PoddApp
         {
                 if (listViewPoddar.SelectedItems.Count > 0) // Kontrollera om det finns ett valt objekt
                 {
-                    //var selectedItem = listViewPoddar.SelectedItems[0]; // Hämta det valda objektet
+                    var selectedItem = listViewPoddar.SelectedItems[0]; // Hämta det valda objektet
                     string poddTitel = selectedItem.SubItems[1].Text; // Hämta poddtitel från listView
+                string url = "";
 
                     // Hämta avsnitt för den valda podden
-                    var avsnitt = poddBLL.HamtaAvsnittForPodd(poddTitel); // Skapa en metod i DAL som hämtar avsnitt
+                    var avsnitt = poddBLL.HamtaAvsnittForPodd(poddTitel, url); // Skapa en metod i DAL som hämtar avsnitt
 
                     // Rensa tidigare avsnitt i listbox
                     listBoxAvsnitt.Items.Clear();
@@ -219,5 +223,5 @@ namespace PoddApp
 
         }
     }
-}
+
 
