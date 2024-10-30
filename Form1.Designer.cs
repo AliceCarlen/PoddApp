@@ -56,7 +56,7 @@
             // 
             // buttonLaggTill
             // 
-            this.buttonLaggTill.Location = new System.Drawing.Point(118, 333);
+            this.buttonLaggTill.Location = new System.Drawing.Point(212, 312);
             this.buttonLaggTill.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonLaggTill.Name = "buttonLaggTill";
             this.buttonLaggTill.Size = new System.Drawing.Size(112, 41);
@@ -88,7 +88,7 @@
             // 
             // textBoxUrl
             // 
-            this.textBoxUrl.Location = new System.Drawing.Point(40, 153);
+            this.textBoxUrl.Location = new System.Drawing.Point(40, 103);
             this.textBoxUrl.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBoxUrl.Name = "textBoxUrl";
             this.textBoxUrl.Size = new System.Drawing.Size(284, 31);
@@ -97,7 +97,7 @@
             // labelAngeURL
             // 
             this.labelAngeURL.AutoSize = true;
-            this.labelAngeURL.Location = new System.Drawing.Point(34, 123);
+            this.labelAngeURL.Location = new System.Drawing.Point(34, 73);
             this.labelAngeURL.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelAngeURL.Name = "labelAngeURL";
             this.labelAngeURL.Size = new System.Drawing.Size(116, 25);
@@ -108,10 +108,10 @@
             // listViewPoddar
             // 
             this.listViewPoddar.HideSelection = false;
-            this.listViewPoddar.Location = new System.Drawing.Point(40, 409);
+            this.listViewPoddar.Location = new System.Drawing.Point(39, 363);
             this.listViewPoddar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.listViewPoddar.Name = "listViewPoddar";
-            this.listViewPoddar.Size = new System.Drawing.Size(284, 420);
+            this.listViewPoddar.Size = new System.Drawing.Size(591, 420);
             this.listViewPoddar.TabIndex = 5;
             this.listViewPoddar.UseCompatibleStateImageBehavior = false;
             this.listViewPoddar.SelectedIndexChanged += new System.EventHandler(this.listViewPoddar_SelectedIndexChanged);
@@ -230,7 +230,7 @@
             // 
             this.labelLaggTillPodd.AutoSize = true;
             this.labelLaggTillPodd.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelLaggTillPodd.Location = new System.Drawing.Point(34, 73);
+            this.labelLaggTillPodd.Location = new System.Drawing.Point(34, 35);
             this.labelLaggTillPodd.Name = "labelLaggTillPodd";
             this.labelLaggTillPodd.Size = new System.Drawing.Size(271, 25);
             this.labelLaggTillPodd.TabIndex = 17;
@@ -240,7 +240,7 @@
             // comboBoxKategori
             // 
             this.comboBoxKategori.FormattingEnabled = true;
-            this.comboBoxKategori.Location = new System.Drawing.Point(40, 212);
+            this.comboBoxKategori.Location = new System.Drawing.Point(40, 191);
             this.comboBoxKategori.Name = "comboBoxKategori";
             this.comboBoxKategori.Size = new System.Drawing.Size(284, 33);
             this.comboBoxKategori.TabIndex = 18;
@@ -249,7 +249,7 @@
             // labelTilldelaKategori
             // 
             this.labelTilldelaKategori.AutoSize = true;
-            this.labelTilldelaKategori.Location = new System.Drawing.Point(34, 184);
+            this.labelTilldelaKategori.Location = new System.Drawing.Point(35, 153);
             this.labelTilldelaKategori.Name = "labelTilldelaKategori";
             this.labelTilldelaKategori.Size = new System.Drawing.Size(170, 25);
             this.labelTilldelaKategori.TabIndex = 19;
@@ -257,7 +257,7 @@
             // 
             // textBoxEgetNamn
             // 
-            this.textBoxEgetNamn.Location = new System.Drawing.Point(40, 284);
+            this.textBoxEgetNamn.Location = new System.Drawing.Point(40, 273);
             this.textBoxEgetNamn.Name = "textBoxEgetNamn";
             this.textBoxEgetNamn.Size = new System.Drawing.Size(284, 31);
             this.textBoxEgetNamn.TabIndex = 20;
@@ -266,7 +266,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(34, 256);
+            this.label2.Location = new System.Drawing.Point(34, 236);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(175, 25);
             this.label2.TabIndex = 21;
@@ -275,7 +275,7 @@
             // comboBoxFiltreraKategori
             // 
             this.comboBoxFiltreraKategori.FormattingEnabled = true;
-            this.comboBoxFiltreraKategori.Location = new System.Drawing.Point(344, 447);
+            this.comboBoxFiltreraKategori.Location = new System.Drawing.Point(644, 236);
             this.comboBoxFiltreraKategori.Name = "comboBoxFiltreraKategori";
             this.comboBoxFiltreraKategori.Size = new System.Drawing.Size(163, 33);
             this.comboBoxFiltreraKategori.TabIndex = 22;
@@ -284,7 +284,7 @@
             // labelFiltreraKategori
             // 
             this.labelFiltreraKategori.AutoSize = true;
-            this.labelFiltreraKategori.Location = new System.Drawing.Point(338, 409);
+            this.labelFiltreraKategori.Location = new System.Drawing.Point(639, 194);
             this.labelFiltreraKategori.Name = "labelFiltreraKategori";
             this.labelFiltreraKategori.Size = new System.Drawing.Size(168, 25);
             this.labelFiltreraKategori.TabIndex = 23;
