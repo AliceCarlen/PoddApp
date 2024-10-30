@@ -25,6 +25,7 @@ namespace PoddApp
             FyllKategoriComboBox(); //metod som fyller comboboxen med kategorier - se metodkropp längre ner
             FiltreraKategorierComboBox(); //metod som filterar kategorier
             listBoxRedigeraKategorierFyll();
+            listViewPoddar.SelectedIndexChanged += listViewPoddar_SelectedIndexChanged;
 
             //Konfigurera kolumner för listViewPoddar
             listViewPoddar.View = View.Details;
@@ -52,11 +53,17 @@ namespace PoddApp
 
             string url = textBoxUrl.Text.Trim();  //hämta url från textrutan
             string egetNamn = textBoxEgetNamn.Text;
-            string kategori = comboBoxFiltreraKategori
+            string kategori = comboBoxKategori.SelectedItem?.ToString();
 
+            //kontrollera att kategori har valts
+            if(string.IsNullOrEmpty(kategori))
+            {
+                MessageBox.Show("Vänligen välj en kategori");
+                return;
+            }
             try
             {
-                poddDAL.HamtaPoddarURL(url, egetNamn);
+                poddDAL.HamtaPoddarURL(url, egetNamn, kategori);
 
                 listViewPoddar.Items.Clear();
                 List<PoddInfo> poddar = poddDAL.HämtaAllaPoddar();
@@ -67,7 +74,8 @@ namespace PoddApp
                     {
                         podd.EgetNamn,
                         podd.PoddTitel,
-                        podd.AntalAvsnitt.ToString()
+                        podd.AntalAvsnitt.ToString(),
+                        podd.Kategori
                     }
                     ));
                 }
@@ -190,6 +198,24 @@ namespace PoddApp
 
         private void listViewPoddar_SelectedIndexChanged(object sender, EventArgs e)
         {
+                if (listViewPoddar.SelectedItems.Count > 0) // Kontrollera om det finns ett valt objekt
+                {
+                    //var selectedItem = listViewPoddar.SelectedItems[0]; // Hämta det valda objektet
+                    string poddTitel = selectedItem.SubItems[1].Text; // Hämta poddtitel från listView
+
+                    // Hämta avsnitt för den valda podden
+                    var avsnitt = poddBLL.HamtaAvsnittForPodd(poddTitel); // Skapa en metod i DAL som hämtar avsnitt
+
+                    // Rensa tidigare avsnitt i listbox
+                    listBoxAvsnitt.Items.Clear();
+
+                    // Lägg till avsnitt i listbox
+                    foreach (var avsnittItem in avsnitt)
+                    {
+                        listBoxAvsnitt.Items.Add(avsnittItem); // Anta att avsnittItem är en sträng med avsnittsinformation
+                    }
+                }
+            }
 
         }
     }

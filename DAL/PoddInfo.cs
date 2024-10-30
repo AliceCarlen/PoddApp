@@ -11,7 +11,7 @@ namespace PoddApp.DAL
         public string PoddTitel { get; set; } //titel ska bara läsas, inte kunna ändras
         public string EgetNamn {  get; set; }
         public int AntalAvsnitt { get; set; } //kan inte ändras av användaren
-        //public string Kategori { get; set; }
+        public string Kategori { get; set; }
     }
 
     

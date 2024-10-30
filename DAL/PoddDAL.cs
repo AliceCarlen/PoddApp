@@ -57,7 +57,7 @@ namespace PoddApp
         private List<PoddInfo> poddar = new List<PoddInfo>(); // Skapar en tom lista för att lagra poddar
 
         // Metod för att hämta poddar från en URL
-        public List<PoddInfo> HamtaPoddarURL(string url, string egetNamn)
+        public List<PoddInfo> HamtaPoddarURL(string url, string egetNamn, string kategori)
         {
             try
             {
@@ -70,7 +70,8 @@ namespace PoddApp
                     {
                         EgetNamn = egetNamn,
                         PoddTitel = feed.Title.Text,
-                        AntalAvsnitt = feed.Items.Count()
+                        AntalAvsnitt = feed.Items.Count(),
+                        Kategori = kategori
                     };
                     poddar.Add(nyPodd);
                 }
@@ -82,37 +83,7 @@ namespace PoddApp
 
             return poddar; // Returnera listan med poddar
         }
-        //    try
-        //    {
-        //        using (XmlReader xmlReader = XmlReader.Create(url))
-        //        {
-        //            SyndicationFeed feed = SyndicationFeed.Load(xmlReader);
-
-        //            //string poddTitel = feed.Title.Text;
-        //            foreach (SyndicationItem item in feed.Items)
-        //            {
-        //                // Skapa ett nytt Podd-objekt
-        //                PoddInfo nyPodd = new PoddInfo
-
-
-        //                {
-        //                    EgetNamn = egetNamn,
-        //                    PoddTitel = item.Title.Text,
-        //                    AntalAvsnitt = feed.Items.Count(), // Räkna avsnitt
-        //                    /*Kategori = "Exempelkategori"*/ // Lägg till logik för att hämta kategori om möjligt
-        //                };
-        //                poddar.Add(nyPodd); // Lägg till podden i listan
-        //            }
-        //        }
-        //    }
-
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception($"Fel vid hämtning av poddar: {ex.Message}");
-        //    }
-
-        //    return poddar; // Returnera listan med poddar
-        //}
+        
 
         public List<PoddInfo> HämtaAllaPoddar()
         {
@@ -145,8 +116,51 @@ namespace PoddApp
                 }
             }
         }
+
+
+    public List<AvsnittInfo> HamtaAvsnittRSS(string url)
+    {
+        var avsnitt = new List<AvsnittInfo>();
+
+       try
+        {
+            using (XmlReader xmlReader = XmlReader.Create(url))
+            {
+                SyndicationFeed feed = SyndicationFeed.Load(xmlReader);
+                
+                foreach (var item in feed.Items)
+                {
+                    avsnitt.Add(new AvsnittInfo
+                    {
+                        PoddTitel = feed.Title.Text,
+                        AvsnittTitel = item.Title.Text,
+
+                    });
+                        
+            }
+            }
+        }
+        catch (Exception ex)
+        { throw new Exception($"Fel vid hämtning av avsnitt: {ex.Message}");
+
+        }
+
+        return avsnitt;
     }
+
+        
+    //public List<AvsnittInfo> HamtaAvsnittForPodd(string poddTitel)
+    //{
+    //    // Filtrera avsnitt baserat på poddTitel
+    //    var avsnitt = avsnittData.FindAll(a => a.PoddTitel.Equals(poddTitel, StringComparison.OrdinalIgnoreCase));
+    //    return avsnitt; // Returnera en lista med avsnitt för den angivna podden
+    //}
+}
 }
 
-    
+
+
+
+
+
 

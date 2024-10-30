@@ -40,7 +40,7 @@
             this.buttonAndra = new System.Windows.Forms.Button();
             this.buttonTaBort = new System.Windows.Forms.Button();
             this.labelMinaKategorier = new System.Windows.Forms.Label();
-            this.Avsnitt = new System.Windows.Forms.ListBox();
+            this.listBoxAvsnitt = new System.Windows.Forms.ListBox();
             this.labelAvsnitt = new System.Windows.Forms.Label();
             this.labelBeskrivning = new System.Windows.Forms.Label();
             this.textBoxBeskrivning = new System.Windows.Forms.TextBox();
@@ -178,15 +178,15 @@
             this.labelMinaKategorier.TabIndex = 11;
             this.labelMinaKategorier.Text = "Mina Kategorier:";
             // 
-            // Avsnitt
+            // listBoxAvsnitt
             // 
-            this.Avsnitt.FormattingEnabled = true;
-            this.Avsnitt.ItemHeight = 25;
-            this.Avsnitt.Location = new System.Drawing.Point(644, 388);
-            this.Avsnitt.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.Avsnitt.Name = "Avsnitt";
-            this.Avsnitt.Size = new System.Drawing.Size(252, 179);
-            this.Avsnitt.TabIndex = 12;
+            this.listBoxAvsnitt.FormattingEnabled = true;
+            this.listBoxAvsnitt.ItemHeight = 25;
+            this.listBoxAvsnitt.Location = new System.Drawing.Point(644, 388);
+            this.listBoxAvsnitt.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.listBoxAvsnitt.Name = "listBoxAvsnitt";
+            this.listBoxAvsnitt.Size = new System.Drawing.Size(252, 179);
+            this.listBoxAvsnitt.TabIndex = 12;
             // 
             // labelAvsnitt
             // 
@@ -306,7 +306,7 @@
             this.Controls.Add(this.textBoxBeskrivning);
             this.Controls.Add(this.labelBeskrivning);
             this.Controls.Add(this.labelAvsnitt);
-            this.Controls.Add(this.Avsnitt);
+            this.Controls.Add(this.listBoxAvsnitt);
             this.Controls.Add(this.labelMinaKategorier);
             this.Controls.Add(this.buttonTaBort);
             this.Controls.Add(this.buttonAndra);
@@ -341,7 +341,7 @@
         private System.Windows.Forms.Button buttonAndra;
         private System.Windows.Forms.Button buttonTaBort;
         private System.Windows.Forms.Label labelMinaKategorier;
-        private System.Windows.Forms.ListBox Avsnitt;
+        private System.Windows.Forms.ListBox listBoxAvsnitt;
         private System.Windows.Forms.Label labelAvsnitt;
         private System.Windows.Forms.Label labelBeskrivning;
         private System.Windows.Forms.TextBox textBoxBeskrivning;

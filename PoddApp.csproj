@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="BLL\BLL.Kategorier.cs" />
     <Compile Include="BLL\PoddBLL.cs" />
+    <Compile Include="DAL\AvsnittInfo.cs" />
     <Compile Include="DAL\PoddDAL.cs" />
     <Compile Include="DAL\DAL.Kategorier.cs" />
     <Compile Include="DAL\PoddInfo.cs" />
