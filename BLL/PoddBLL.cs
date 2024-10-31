@@ -7,13 +7,33 @@ using System.Text;
 using System.Threading.Tasks;
 using PoddApp.DAL;
 using PoddApp.BLL;
+using System.Xml;
+using System.ServiceModel.Syndication;
 
 namespace PoddApp
 {
-    public class PoddBLL : iFeedManager
+    public class PoddBLL : iFeedManager 
     {
         private PoddDAL poddDAL;
-        public PoddBLL() : base()//Skapar referens från poddDal-lagret. Fält
+
+        {
+            private List<PoddInfo> poddar = new List<PoddInfo>(); //Lista för att lagra poddar
+
+        //Asynkron metod för att hämta PoddInfo från en URL
+
+        public async Task<PoddInfo> HamtaPoddInfoAsync(string url)
+        {
+            
+            try
+            {
+                using (XmlReader xmlReader) XmlReader.Create(url))    
+                {
+                    SyndiactionFeed feed = await Task.Run(() => SyndicationFeed.Load(xmlReader));
+
+                    return new PoddInfo 
+
+
+                    public PoddBLL() : base()//Skapar referens från poddDal-lagret. Fält
         {
             poddDAL = new PoddDAL();
         }
