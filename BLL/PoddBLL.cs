@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.NetworkInformation;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using PoddApp.DAL;
@@ -24,7 +25,7 @@ namespace PoddApp
             var poddar = poddDAL.HamtaPoddarURL(url, egetNamn, kategori);
             // Om du vill returnera titlarna som en lista av strängar, kan du skapa en lista
             return poddar.Select(p => p.PoddTitel).ToList();
-     
+
         }
 
         public List<string> HamtaAvsnittForPodd(string poddTitel, string url)
@@ -38,6 +39,16 @@ namespace PoddApp
         {
             return poddDAL.HamtaPoddInfo(url);
         }
-    }
-}
 
+        public string HamtaBeskrivningForAvsnitt(string avsnittTitel, string url)
+        {
+            // Här antas att vi redan har hämtat poddavsnitten i listan
+            var avsnitt = poddDAL.HamtaAvsnittRSS(url).FirstOrDefault(a => a.AvsnittTitel == avsnittTitel);
+
+            // Om avsnittet hittas, returnera dess beskrivning
+            return avsnitt?.Beskrivning ?? "Beskrivning ej tillgänglig.";
+        }
+
+    }
+
+}

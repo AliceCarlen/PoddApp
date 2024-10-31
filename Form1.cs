@@ -18,6 +18,7 @@ namespace PoddApp
         private KategoriManager kategoriManager; //fält som refererar till BLL-lagret
         private PoddDAL poddDAL;
         private PoddBLL poddBLL;
+        private string currentUrl;
         public Form1() //konstruktor som skapar en instans av BLL-lagret (KategoriManager)
         {
             InitializeComponent();
@@ -40,6 +41,7 @@ namespace PoddApp
             listViewPoddar.Columns.Add("Kategori", -2, HorizontalAlignment.Left);
             listViewPoddar.Columns.Add("URL", -2, HorizontalAlignment.Left);
 
+            listBoxAvsnitt.SelectedIndexChanged += listBoxAvsnitt_SelectedIndexChanged;
 
         }
 
@@ -210,10 +212,10 @@ namespace PoddApp
             {
                 var selectedItem = listViewPoddar.SelectedItems[0]; // Hämta det valda objektet
                 string poddTitel = selectedItem.SubItems[1].Text; // Hämta poddtitel från listView
-                string url = selectedItem.SubItems[4].Text;
+                currentUrl = selectedItem.SubItems[4].Text;
 
                 // Hämta avsnitt för den valda podden
-                var avsnitt = poddBLL.HamtaAvsnittForPodd(poddTitel, url); // Skapa en metod i DAL som hämtar avsnitt
+                var avsnitt = poddBLL.HamtaAvsnittForPodd(poddTitel, currentUrl); // Skapa en metod i DAL som hämtar avsnitt
 
                 // Rensa tidigare avsnitt i listbox
                 listBoxAvsnitt.Items.Clear();
@@ -224,17 +226,10 @@ namespace PoddApp
                     listBoxAvsnitt.Items.Add(avsnittItem); // Anta att avsnittItem är en sträng med avsnittsinformation
                 }
 
-                //    listBoxAvsnitt.SelectedIndexChanged += (s, args) =>
-                //    {
-                //        if (listBoxAvsnitt.SelectedItem is AvsnittInfo selectedAvsnitt)
-                //        {
-                //            textBoxBeskrivning.Text = selectedAvsnitt.Beskrivning; // Visa beskrivningen
-                //        }
-                //    };
-                //}
+               
             }
         }
-    
+
 
         private void LasInPoddarOchFyllListView()
         {
@@ -266,23 +261,53 @@ namespace PoddApp
 
         }
 
+        private void richTextBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Kontrollera om ett avsnitt är valt
+            if (listBoxAvsnitt.SelectedItem != null)
+            {
+                // Hämta valt avsnittets titel
+                string valdAvsnittTitel = listBoxAvsnitt.SelectedItem.ToString();
+
+                // Hämta beskrivningen från BLL/DAL för valt avsnitt
+                string beskrivning = poddBLL.HamtaBeskrivningForAvsnitt(valdAvsnittTitel, currentUrl);
+
+                // Visa beskrivningen i textBoxBeskrivning
+                richTextBox.Text = beskrivning;
+            }
+
+
+        }
+
         private void listBoxAvsnitt_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //listBoxAvsnitt.SelectedIndexChanged += (s, args) =>
+            // Kontrollera om ett avsnitt är valt
+            if (listBoxAvsnitt.SelectedItem != null)
             {
-                // Kontrollera om det valda objektet är av typen AvsnittInfo
-                if (listBoxAvsnitt.SelectedItem is AvsnittInfo selectedAvsnitt)
-                {
-                    // Fyll textBoxBeskrivning med avsnittets beskrivning
-                    textBoxBeskrivning.Text = selectedAvsnitt.Beskrivning;
-                }
-                else
-                {
-                    textBoxBeskrivning.Clear(); // Rensa om inget är valt
-                }
-            };
+                // Hämta valt avsnittets titel
+                string valdAvsnittTitel = listBoxAvsnitt.SelectedItem.ToString();
+
+                 // Kontrollera att currentUrl är korrekt
+        if (string.IsNullOrEmpty(currentUrl) || !Uri.IsWellFormedUriString(currentUrl, UriKind.Absolute))
+        {
+            MessageBox.Show("Den angivna URL:n är ogiltig.");
+            return;
+        }
+
+                // Hämta beskrivningen från BLL/DAL för valt avsnitt
+                string beskrivning = poddBLL.HamtaBeskrivningForAvsnitt(valdAvsnittTitel, currentUrl); // Se till att metoden är korrekt definierad
+
+                // Visa beskrivningen i textBoxBeskrivning
+                richTextBox.Text = beskrivning;
+            }
+        }
+
+        private void richTextBox_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
+
 
 

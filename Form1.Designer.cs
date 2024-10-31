@@ -43,7 +43,6 @@
             this.listBoxAvsnitt = new System.Windows.Forms.ListBox();
             this.labelAvsnitt = new System.Windows.Forms.Label();
             this.labelBeskrivning = new System.Windows.Forms.Label();
-            this.textBoxBeskrivning = new System.Windows.Forms.TextBox();
             this.labelAndraKategori = new System.Windows.Forms.Label();
             this.labelLaggTillPodd = new System.Windows.Forms.Label();
             this.comboBoxKategori = new System.Windows.Forms.ComboBox();
@@ -52,6 +51,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.comboBoxFiltreraKategori = new System.Windows.Forms.ComboBox();
             this.labelFiltreraKategori = new System.Windows.Forms.Label();
+            this.richTextBox = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // buttonLaggTill
@@ -79,7 +79,7 @@
             // buttonLaggTillKategori
             // 
             this.buttonLaggTillKategori.Location = new System.Drawing.Point(786, 373);
-            this.buttonLaggTillKategori.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonLaggTillKategori.Margin = new System.Windows.Forms.Padding(2);
             this.buttonLaggTillKategori.Name = "buttonLaggTillKategori";
             this.buttonLaggTillKategori.Size = new System.Drawing.Size(65, 24);
             this.buttonLaggTillKategori.TabIndex = 2;
@@ -198,14 +198,6 @@
             this.labelBeskrivning.TabIndex = 14;
             this.labelBeskrivning.Text = "Beskrivning:";
             // 
-            // textBoxBeskrivning
-            // 
-            this.textBoxBeskrivning.Location = new System.Drawing.Point(429, 401);
-            this.textBoxBeskrivning.Name = "textBoxBeskrivning";
-            this.textBoxBeskrivning.Size = new System.Drawing.Size(169, 22);
-            this.textBoxBeskrivning.TabIndex = 15;
-            this.textBoxBeskrivning.TextChanged += new System.EventHandler(this.textBoxBeskrivning_TextChanged);
-            // 
             // labelAndraKategori
             // 
             this.labelAndraKategori.AutoSize = true;
@@ -233,7 +225,7 @@
             // 
             this.comboBoxKategori.FormattingEnabled = true;
             this.comboBoxKategori.Location = new System.Drawing.Point(27, 122);
-            this.comboBoxKategori.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBoxKategori.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxKategori.Name = "comboBoxKategori";
             this.comboBoxKategori.Size = new System.Drawing.Size(191, 24);
             this.comboBoxKategori.TabIndex = 18;
@@ -252,7 +244,7 @@
             // textBoxEgetNamn
             // 
             this.textBoxEgetNamn.Location = new System.Drawing.Point(27, 175);
-            this.textBoxEgetNamn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxEgetNamn.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxEgetNamn.Name = "textBoxEgetNamn";
             this.textBoxEgetNamn.Size = new System.Drawing.Size(191, 22);
             this.textBoxEgetNamn.TabIndex = 20;
@@ -272,7 +264,7 @@
             // 
             this.comboBoxFiltreraKategori.FormattingEnabled = true;
             this.comboBoxFiltreraKategori.Location = new System.Drawing.Point(429, 151);
-            this.comboBoxFiltreraKategori.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBoxFiltreraKategori.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxFiltreraKategori.Name = "comboBoxFiltreraKategori";
             this.comboBoxFiltreraKategori.Size = new System.Drawing.Size(110, 24);
             this.comboBoxFiltreraKategori.TabIndex = 22;
@@ -288,11 +280,21 @@
             this.labelFiltreraKategori.TabIndex = 23;
             this.labelFiltreraKategori.Text = "Filtrera kategori:";
             // 
+            // richTextBox
+            // 
+            this.richTextBox.Location = new System.Drawing.Point(429, 406);
+            this.richTextBox.Name = "richTextBox";
+            this.richTextBox.Size = new System.Drawing.Size(223, 145);
+            this.richTextBox.TabIndex = 24;
+            this.richTextBox.Text = "";
+            this.richTextBox.TextChanged += new System.EventHandler(this.richTextBox_TextChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1045, 563);
+            this.Controls.Add(this.richTextBox);
             this.Controls.Add(this.labelFiltreraKategori);
             this.Controls.Add(this.comboBoxFiltreraKategori);
             this.Controls.Add(this.label2);
@@ -301,7 +303,6 @@
             this.Controls.Add(this.comboBoxKategori);
             this.Controls.Add(this.labelLaggTillPodd);
             this.Controls.Add(this.labelAndraKategori);
-            this.Controls.Add(this.textBoxBeskrivning);
             this.Controls.Add(this.labelBeskrivning);
             this.Controls.Add(this.labelAvsnitt);
             this.Controls.Add(this.listBoxAvsnitt);
@@ -341,7 +342,6 @@
         private System.Windows.Forms.ListBox listBoxAvsnitt;
         private System.Windows.Forms.Label labelAvsnitt;
         private System.Windows.Forms.Label labelBeskrivning;
-        private System.Windows.Forms.TextBox textBoxBeskrivning;
         private System.Windows.Forms.Label labelAndraKategori;
         private System.Windows.Forms.Label labelLaggTillPodd;
         private System.Windows.Forms.ComboBox comboBoxKategori;
@@ -350,6 +350,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox comboBoxFiltreraKategori;
         private System.Windows.Forms.Label labelFiltreraKategori;
+        private System.Windows.Forms.RichTextBox richTextBox;
     }
 }
 
