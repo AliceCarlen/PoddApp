@@ -80,7 +80,7 @@ namespace PoddApp
                     listViewPoddar.Items.Add(new ListViewItem(new[]
                     {
                         podd.EgetNamn,
-                        podd.PoddTitel,
+                        podd.Titel,
                         podd.AntalAvsnitt.ToString(),
                         podd.Kategori,
                         podd.Url
@@ -243,7 +243,7 @@ namespace PoddApp
                 listViewPoddar.Items.Add(new ListViewItem(new[]
                 {
                 podd.EgetNamn,
-                podd.PoddTitel,
+                podd.Titel,
                 podd.AntalAvsnitt.ToString(),
                 podd.Kategori,
                 podd.Url

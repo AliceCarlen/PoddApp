@@ -28,7 +28,7 @@ namespace PoddApp
 
                     return new PoddInfo
                     {
-                        PoddTitel = feed.Title.Text,
+                        Titel = feed.Title.Text,
                         AntalAvsnitt = feed.Items.Count(),
                     };
                 }
@@ -69,7 +69,7 @@ namespace PoddApp
                     PoddInfo nyPodd = new PoddInfo
                     {
                         EgetNamn = egetNamn,
-                        PoddTitel = feed.Title.Text,
+                        Titel = feed.Title.Text,
                         AntalAvsnitt = feed.Items.Count(),
                         Kategori = kategori,
                         Url = url
@@ -88,6 +88,7 @@ namespace PoddApp
 
         public List<PoddInfo> HämtaAllaPoddar()
         {
+
             return poddar; // Metod för att hämta den aktuella listan av poddar
         }
 

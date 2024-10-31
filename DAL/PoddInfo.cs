@@ -5,17 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace PoddApp.DAL
+{ 
+public class PoddInfo : FeedInfo
 {
-    public class PoddInfo
-    {
-        public string PoddTitel { get; set; } //titel ska bara läsas, inte kunna ändras
-        public string EgetNamn {  get; set; }
-        public int AntalAvsnitt { get; set; } //kan inte ändras av användaren
-        public string Kategori { get; set; }
+    public int AntalAvsnitt { get; set; }
 
-        public string Url { get; set; }
+    public List<AvsnittInfo> Avsnitt { get; set; } = new List<AvsnittInfo>();
+    public override List<string> HamtaInnehall()
+    {
+        return Avsnitt.Select(a => a.AvsnittTitel).ToList();
     }
 
-    
-
+    }
 }
+
+
