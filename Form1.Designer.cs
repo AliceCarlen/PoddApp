@@ -56,7 +56,7 @@
             // 
             // buttonLaggTill
             // 
-            this.buttonLaggTill.Location = new System.Drawing.Point(141, 200);
+            this.buttonLaggTill.Location = new System.Drawing.Point(73, 202);
             this.buttonLaggTill.Name = "buttonLaggTill";
             this.buttonLaggTill.Size = new System.Drawing.Size(75, 26);
             this.buttonLaggTill.TabIndex = 0;
@@ -78,7 +78,7 @@
             // 
             // buttonLaggTillKategori
             // 
-            this.buttonLaggTillKategori.Location = new System.Drawing.Point(786, 373);
+            this.buttonLaggTillKategori.Location = new System.Drawing.Point(777, 509);
             this.buttonLaggTillKategori.Margin = new System.Windows.Forms.Padding(2);
             this.buttonLaggTillKategori.Name = "buttonLaggTillKategori";
             this.buttonLaggTillKategori.Size = new System.Drawing.Size(65, 24);
@@ -109,7 +109,7 @@
             this.listViewPoddar.HideSelection = false;
             this.listViewPoddar.Location = new System.Drawing.Point(26, 232);
             this.listViewPoddar.Name = "listViewPoddar";
-            this.listViewPoddar.Size = new System.Drawing.Size(395, 270);
+            this.listViewPoddar.Size = new System.Drawing.Size(395, 310);
             this.listViewPoddar.TabIndex = 5;
             this.listViewPoddar.UseCompatibleStateImageBehavior = false;
             this.listViewPoddar.SelectedIndexChanged += new System.EventHandler(this.listViewPoddar_SelectedIndexChanged);
@@ -117,7 +117,7 @@
             // labelRedigeraKategorier
             // 
             this.labelRedigeraKategorier.AutoSize = true;
-            this.labelRedigeraKategorier.Location = new System.Drawing.Point(783, 299);
+            this.labelRedigeraKategorier.Location = new System.Drawing.Point(794, 437);
             this.labelRedigeraKategorier.Name = "labelRedigeraKategorier";
             this.labelRedigeraKategorier.Size = new System.Drawing.Size(196, 16);
             this.labelRedigeraKategorier.TabIndex = 6;
@@ -127,7 +127,7 @@
             // 
             this.listBoxRedigerakategorier.FormattingEnabled = true;
             this.listBoxRedigerakategorier.ItemHeight = 16;
-            this.listBoxRedigerakategorier.Location = new System.Drawing.Point(817, 136);
+            this.listBoxRedigerakategorier.Location = new System.Drawing.Point(816, 276);
             this.listBoxRedigerakategorier.Name = "listBoxRedigerakategorier";
             this.listBoxRedigerakategorier.Size = new System.Drawing.Size(150, 148);
             this.listBoxRedigerakategorier.TabIndex = 7;
@@ -135,7 +135,7 @@
             // 
             // textBoxHanteraKategori
             // 
-            this.textBoxHanteraKategori.Location = new System.Drawing.Point(837, 332);
+            this.textBoxHanteraKategori.Location = new System.Drawing.Point(827, 469);
             this.textBoxHanteraKategori.Name = "textBoxHanteraKategori";
             this.textBoxHanteraKategori.Size = new System.Drawing.Size(125, 22);
             this.textBoxHanteraKategori.TabIndex = 8;
@@ -143,7 +143,7 @@
             // 
             // buttonAndra
             // 
-            this.buttonAndra.Location = new System.Drawing.Point(869, 373);
+            this.buttonAndra.Location = new System.Drawing.Point(861, 510);
             this.buttonAndra.Name = "buttonAndra";
             this.buttonAndra.Size = new System.Drawing.Size(56, 23);
             this.buttonAndra.TabIndex = 9;
@@ -153,7 +153,7 @@
             // 
             // buttonTaBort
             // 
-            this.buttonTaBort.Location = new System.Drawing.Point(942, 373);
+            this.buttonTaBort.Location = new System.Drawing.Point(939, 510);
             this.buttonTaBort.Name = "buttonTaBort";
             this.buttonTaBort.Size = new System.Drawing.Size(61, 23);
             this.buttonTaBort.TabIndex = 10;
@@ -164,7 +164,7 @@
             // labelMinaKategorier
             // 
             this.labelMinaKategorier.AutoSize = true;
-            this.labelMinaKategorier.Location = new System.Drawing.Point(813, 110);
+            this.labelMinaKategorier.Location = new System.Drawing.Point(837, 243);
             this.labelMinaKategorier.Name = "labelMinaKategorier";
             this.labelMinaKategorier.Size = new System.Drawing.Size(104, 16);
             this.labelMinaKategorier.TabIndex = 11;
@@ -174,7 +174,7 @@
             // 
             this.listBoxAvsnitt.FormattingEnabled = true;
             this.listBoxAvsnitt.ItemHeight = 16;
-            this.listBoxAvsnitt.Location = new System.Drawing.Point(429, 248);
+            this.listBoxAvsnitt.Location = new System.Drawing.Point(472, 232);
             this.listBoxAvsnitt.Name = "listBoxAvsnitt";
             this.listBoxAvsnitt.Size = new System.Drawing.Size(169, 116);
             this.listBoxAvsnitt.TabIndex = 12;
@@ -183,7 +183,7 @@
             // labelAvsnitt
             // 
             this.labelAvsnitt.AutoSize = true;
-            this.labelAvsnitt.Location = new System.Drawing.Point(426, 229);
+            this.labelAvsnitt.Location = new System.Drawing.Point(529, 210);
             this.labelAvsnitt.Name = "labelAvsnitt";
             this.labelAvsnitt.Size = new System.Drawing.Size(49, 16);
             this.labelAvsnitt.TabIndex = 13;
@@ -192,7 +192,7 @@
             // labelBeskrivning
             // 
             this.labelBeskrivning.AutoSize = true;
-            this.labelBeskrivning.Location = new System.Drawing.Point(426, 373);
+            this.labelBeskrivning.Location = new System.Drawing.Point(529, 355);
             this.labelBeskrivning.Name = "labelBeskrivning";
             this.labelBeskrivning.Size = new System.Drawing.Size(80, 16);
             this.labelBeskrivning.TabIndex = 14;
@@ -202,7 +202,7 @@
             // 
             this.labelAndraKategori.AutoSize = true;
             this.labelAndraKategori.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelAndraKategori.Location = new System.Drawing.Point(837, 47);
+            this.labelAndraKategori.Location = new System.Drawing.Point(826, 210);
             this.labelAndraKategori.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelAndraKategori.Name = "labelAndraKategori";
             this.labelAndraKategori.Size = new System.Drawing.Size(115, 17);
@@ -263,7 +263,7 @@
             // comboBoxFiltreraKategori
             // 
             this.comboBoxFiltreraKategori.FormattingEnabled = true;
-            this.comboBoxFiltreraKategori.Location = new System.Drawing.Point(429, 151);
+            this.comboBoxFiltreraKategori.Location = new System.Drawing.Point(276, 175);
             this.comboBoxFiltreraKategori.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxFiltreraKategori.Name = "comboBoxFiltreraKategori";
             this.comboBoxFiltreraKategori.Size = new System.Drawing.Size(110, 24);
@@ -273,7 +273,7 @@
             // labelFiltreraKategori
             // 
             this.labelFiltreraKategori.AutoSize = true;
-            this.labelFiltreraKategori.Location = new System.Drawing.Point(426, 124);
+            this.labelFiltreraKategori.Location = new System.Drawing.Point(283, 151);
             this.labelFiltreraKategori.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelFiltreraKategori.Name = "labelFiltreraKategori";
             this.labelFiltreraKategori.Size = new System.Drawing.Size(103, 16);
@@ -282,9 +282,9 @@
             // 
             // richTextBox
             // 
-            this.richTextBox.Location = new System.Drawing.Point(429, 406);
+            this.richTextBox.Location = new System.Drawing.Point(453, 374);
             this.richTextBox.Name = "richTextBox";
-            this.richTextBox.Size = new System.Drawing.Size(223, 145);
+            this.richTextBox.Size = new System.Drawing.Size(223, 168);
             this.richTextBox.TabIndex = 24;
             this.richTextBox.Text = "";
             this.richTextBox.TextChanged += new System.EventHandler(this.richTextBox_TextChanged);

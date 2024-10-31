@@ -137,13 +137,13 @@ namespace PoddApp
                         if (string.IsNullOrEmpty(beskrivning))
                         {
                             // Alternativ 1: Hämta från <itunes:summary> om det finns
-                            var itunesSummary = item.ElementExtensions
-                                .FirstOrDefault(ext => ext.OuterName == "summary" && ext.OuterNamespace == "http://www.itunes.com/dtds/podcast-1.0.dtd");
+                            //var itunesSummary = item.ElementExtensions
+                            //    .FirstOrDefault(ext => ext.OuterName == "summary" && ext.OuterNamespace == "http://www.itunes.com/dtds/podcast-1.0.dtd");
 
-                            if (itunesSummary != null)
-                            {
-                                beskrivning = itunesSummary.GetObject<string>();
-                            }
+                            //if (itunesSummary != null)
+                            //{
+                            //    beskrivning = itunesSummary.GetObject<string>();
+                            //}
 
                             // Alternativ 2: Hämta från <description> om den används istället
                             var description = item.ElementExtensions
@@ -177,16 +177,7 @@ namespace PoddApp
 
         public List<AvsnittInfo> HamtaAvsnittForPodd(string poddTitel, string url)
         {
-            //var avsnitt = new List<AvsnittInfo>();
-            //foreach (var podd in poddar)
-            //{
-            //    if (podd.PoddTitel.Equals(poddTitel, StringComparison.OrdinalIgnoreCase))
-            //    {
-            //        avsnitt = HamtaAvsnittRSS(podd.Url); // Vi anropar HamtaAvsnittRSS baserat på poddens URL.
-            //        break;
-            //    }
-            //}
-            // return avsnitt;
+         
             return HamtaAvsnittRSS(url)
                  .Where(a => a.PoddTitel.Equals(poddTitel, StringComparison.OrdinalIgnoreCase))
                  .ToList();
