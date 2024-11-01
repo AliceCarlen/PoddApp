@@ -10,13 +10,96 @@ using System.CodeDom;
 using System.ServiceModel.Syndication;
 using PoddApp.DAL;
 using System.Net;
+using System.Windows.Forms.VisualStyles;
 
 namespace PoddApp
 {
     public class PoddDAL
     {
-        
+           
+    private List<PoddInfo> poddar = new List<PoddInfo>(); //Lista för att lagra poddar
 
+        //Asynkron metod för att hämta PoddInfo från en URL
+
+        public async Task<PoddInfo> HamtaPoddInfoAsync(string url)
+        {
+
+            try
+            {
+                using (XmlReader xmlReader = XmlReader.Create(url))    
+                {
+                    var feed = await Task.Run(() => SyndicationFeed.Load(xmlReader));
+
+                    return new PoddInfo
+                    {
+                        Titel = feed.Title.Text,
+                        AntalAvsnitt = feed.Items.Count()
+                    };
+
+                }
+            }
+
+            catch (WebException ex)
+            {
+                throw new Exception("Kunde inte nå Url: " + ex.Message);
+            }
+
+            catch (UriFormatException)
+            {
+                throw new Exception("Felaktig URL-format. Vänligen kontrollera URL:en.");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Fel vid hämtning av poddar: {ex.Message}");
+            }
+        }
+
+        public async Task<List<AvsnittInfo>> HamtaAvsnittRSSAsync(string url)
+        {
+            var avsnitt = new List<AvsnittInfo>();
+
+            try
+            {
+                using (XmlReader xmlReader = XmlReader.Create(url))
+                {
+                    // Ladda syndikationsflödet asynkront
+                    var feed = await Task.Run(() => SyndicationFeed.Load(xmlReader));
+
+                    foreach (var item in feed.Items)
+                    {
+                        string beskrivning = item.Summary?.Text ?? "Ingen beskrivning tillgänglig"; // Hantera nul
+
+                        // Om beskrivning är tom, försök hämta från andra fält som <description>
+                        if (string.IsNullOrEmpty(beskrivning))
+                        {
+                            var description = item.ElementExtensions
+                                .FirstOrDefault(ext => ext.OuterName == "description");
+
+                            if (description != null)
+                            {
+                                beskrivning = description.GetObject<string>() ?? "Ingen beskrivning tillgänglig"; // Hantera null
+                            }
+                        }
+
+                        avsnitt.Add(new AvsnittInfo
+                        {
+                            PoddTitel = feed.Title.Text,
+                            AvsnittTitel = item.Title.Text,
+                            Beskrivning = beskrivning
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Fel vid hämtning av avsnitt: {ex.Message}");
+            }
+
+            return avsnitt;
+        }
+
+
+        //synkron metod för att hämta PoddInfo från en URL
         public PoddInfo HamtaPoddInfo(string url)
         {
             try
@@ -24,20 +107,17 @@ namespace PoddApp
                 using (XmlReader xmlReader = XmlReader.Create(url))
                 {
                     SyndicationFeed feed = SyndicationFeed.Load(xmlReader);
-
-
                     return new PoddInfo
                     {
                         Titel = feed.Title.Text,
-                        AntalAvsnitt = feed.Items.Count(),
+                        AntalAvsnitt = feed.Items.Count()
                     };
-                }
             }
+        }
 
-            catch (WebException ex) //undantag för ev fel
+            catch (WebException ex)
             {
-                throw new Exception("Kunde inte nå Url: " + ex.Message);
-
+                throw new Exception("Kunde inte nå URL: " + ex.Message);
             }
             catch (UriFormatException)
             {
@@ -51,31 +131,29 @@ namespace PoddApp
 
 
 
-  
-
-
-        private List<PoddInfo> poddar = new List<PoddInfo>(); // Skapar en tom lista för att lagra poddar
 
         // Metod för att hämta poddar från en URL
-        public List<PoddInfo> HamtaPoddarURL(string url, string egetNamn, string kategori)
+        public async Task<List<PoddInfo>> HamtaPoddarURL(string url, string egetNamn, string kategori)
         {
+          
             try
-            {
-                using (XmlReader xmlReader = XmlReader.Create(url))
+    
                 {
-                    SyndicationFeed feed = SyndicationFeed.Load(xmlReader);
-
-                    // Skapa ett enda PoddInfo-objekt för podden
-                    PoddInfo nyPodd = new PoddInfo
+                    using (XmlReader xmlReader = XmlReader.Create(url))
                     {
-                        EgetNamn = egetNamn,
-                        Titel = feed.Title.Text,
-                        AntalAvsnitt = feed.Items.Count(),
-                        Kategori = kategori,
-                        Url = url
-                    };
-                    poddar.Add(nyPodd);
-                }
+                        SyndicationFeed feed = await Task.Run(() => SyndicationFeed.Load(xmlReader));
+
+                        // Skapa ett enda PoddInfo-objekt för podden
+                        PoddInfo nyPodd = new PoddInfo
+                        {
+                            EgetNamn = egetNamn,
+                            Titel = feed.Title.Text,
+                            AntalAvsnitt = feed.Items.Count(),
+                            Kategori = kategori,
+                            Url = url
+                        };
+                        poddar.Add(nyPodd);
+                    }
             }
             catch (Exception ex)
             {
@@ -120,71 +198,109 @@ namespace PoddApp
         }
 
 
-    public List<AvsnittInfo> HamtaAvsnittRSS(string url)
+        public async Task<List<AvsnittInfo>> HamtaAvsnittRSS(string url)
     {
-        var avsnitt = new List<AvsnittInfo>();
+            var avsnitt = new List<AvsnittInfo>();
 
-       try
-        {
-            using (XmlReader xmlReader = XmlReader.Create(url))
+            try
             {
-                SyndicationFeed feed = SyndicationFeed.Load(xmlReader);
-                
-                foreach (var item in feed.Items)
+                using (XmlReader xmlReader = XmlReader.Create(url))
                 {
-                        string beskrivning = item.Summary?.Text;
+                    var feed = await Task.Run(() => SyndicationFeed.Load(xmlReader));
 
-                        // Om beskrivning är tom, kontrollera om det finns andra relevanta fält
-                        if (string.IsNullOrEmpty(beskrivning))
+                    // Kontrollera om feed är null
+                    if (feed == null)
+                    {
+                        throw new Exception("Inga poddar hittades.");
+                    }
+
+                    foreach (var item in feed.Items)
+                    {
+                        // Kontrollera om item är null
+                        if (item == null)
                         {
-                            // Alternativ 1: Hämta från <itunes:summary> om det finns
-                            //var itunesSummary = item.ElementExtensions
-                            //    .FirstOrDefault(ext => ext.OuterName == "summary" && ext.OuterNamespace == "http://www.itunes.com/dtds/podcast-1.0.dtd");
-
-                            //if (itunesSummary != null)
-                            //{
-                            //    beskrivning = itunesSummary.GetObject<string>();
-                            //}
-
-                            // Alternativ 2: Hämta från <description> om den används istället
-                            var description = item.ElementExtensions
-                                .FirstOrDefault(ext => ext.OuterName == "description");
-
-                            if (description != null && string.IsNullOrEmpty(beskrivning))
-                            {
-                                beskrivning = description.GetObject<string>();
-                            }
+                            continue; // Hoppa över null-poster
                         }
 
+                        // Använd null-kontroller för titel och beskrivning
+                        string poddTitel = feed.Title?.Text ?? "Ingen titel tillgänglig"; // Hantera null
+                        string avsnittTitel = item.Title?.Text ?? "Ingen avsnitttitel tillgänglig"; // Hantera null
+                        string beskrivning = item.Summary?.Text ?? "Ingen beskrivning tillgänglig"; // Hantera null
+
                         avsnitt.Add(new AvsnittInfo
-                    {
-                        PoddTitel = feed.Title.Text,
-                        AvsnittTitel = item.Title.Text,
-                        Beskrivning = item.Summary.Text
-
-                    });
-                        
+                        {
+                            PoddTitel = poddTitel,
+                            AvsnittTitel = avsnittTitel,
+                            Beskrivning = beskrivning
+                        });
+                    }
+                }
             }
+            catch (Exception ex)
+            {
+                throw new Exception($"Fel vid hämtning av avsnitt: {ex.Message}");
             }
+
+            return avsnitt;
         }
-        catch (Exception ex)
-        { throw new Exception($"Fel vid hämtning av avsnitt: {ex.Message}");
+        //    var avsnitt = new List<AvsnittInfo>();
 
-        }
+        //   try
+        //    {
+        //        using (XmlReader xmlReader = XmlReader.Create(url))
+        //        {
+        //                var feed = await Task.Run(() => SyndicationFeed.Load(xmlReader));
+        //                //SyndicationFeed feed = SyndicationFeed.Load(xmlReader);
 
-        return avsnitt;
-    }
+        //                foreach (var item in feed.Items)
+        //            {
+        //                    string beskrivning = item.Summary?.Text ?? "Ingen beskrivning tillgänglig"; // Fallback-värde
+
+        //                    // Om beskrivning är tom, kontrollera om det finns andra relevanta fält
+        //                    if (string.IsNullOrEmpty(beskrivning))
+        //                    {
+
+        //                        var description = item.ElementExtensions
+        //                            .FirstOrDefault(ext => ext.OuterName == "description");
+
+        //                        if (description != null)
+        //                        {
+        //                            beskrivning = description.GetObject<string>() ?? "Ingen beskrivning tillgänglig"; // Fallback-värd
+        //                        }
+        //                    }
+
+        //                    avsnitt.Add(new AvsnittInfo
+
+        //                {
+        //                    PoddTitel = feed.Title.Text,
+        //                    AvsnittTitel = item.Title.Text,
+        //                    Beskrivning = item.Summary.Text
+
+        //                });
+
+        //        }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    { throw new Exception($"Fel vid hämtning av avsnitt: {ex.Message}");
+
+        //    }
+
+        //    return avsnitt;
+        //}
 
 
-        public List<AvsnittInfo> HamtaAvsnittForPodd(string poddTitel, string url)
+        public async Task<List<AvsnittInfo>> HamtaAvsnittForPoddAsync(string poddTitel, string url)
         {
-         
-            return HamtaAvsnittRSS(url)
+
+            var avsnittList = await HamtaAvsnittRSS(url);
+                return avsnittList
                  .Where(a => a.PoddTitel.Equals(poddTitel, StringComparison.OrdinalIgnoreCase))
                  .ToList();
         }
     }
 }
+
 
 
 

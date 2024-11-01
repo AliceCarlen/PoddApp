@@ -55,7 +55,7 @@ namespace PoddApp
 
         }
 
-        private void buttonLaggTill_Click(object sender, EventArgs e)
+        private async void buttonLaggTill_Click(object sender, EventArgs e)
         {
 
             string url = textBoxUrl.Text.Trim();  //hämta url från textrutan
@@ -70,7 +70,7 @@ namespace PoddApp
             }
             try
             {
-                poddDAL.HamtaPoddarURL(url, egetNamn, kategori);
+                await poddDAL.HamtaPoddarURL(url, egetNamn, kategori);
 
                 listViewPoddar.Items.Clear();
                 List<PoddInfo> poddar = poddDAL.HämtaAllaPoddar();
@@ -206,7 +206,7 @@ namespace PoddApp
             }
         }
 
-        private void listViewPoddar_SelectedIndexChanged(object sender, EventArgs e)
+        private async void listViewPoddar_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listViewPoddar.SelectedItems.Count > 0) // Kontrollera om det finns ett valt objekt
             {
@@ -215,7 +215,7 @@ namespace PoddApp
                 currentUrl = selectedItem.SubItems[4].Text;
 
                 // Hämta avsnitt för den valda podden
-                var avsnitt = poddBLL.HamtaAvsnittForPodd(poddTitel, currentUrl); // Skapa en metod i DAL som hämtar avsnitt
+                var avsnitt = await poddBLL.HamtaAvsnittForPoddAsync(poddTitel, currentUrl); // Skapa en metod i DAL som hämtar avsnitt
 
                 // Rensa tidigare avsnitt i listbox
                 listBoxAvsnitt.Items.Clear();
@@ -261,7 +261,7 @@ namespace PoddApp
 
         }
 
-        private void richTextBox_SelectedIndexChanged(object sender, EventArgs e)
+        private async void richTextBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Kontrollera om ett avsnitt är valt
             if (listBoxAvsnitt.SelectedItem != null)
@@ -270,7 +270,7 @@ namespace PoddApp
                 string valdAvsnittTitel = listBoxAvsnitt.SelectedItem.ToString();
 
                 // Hämta beskrivningen från BLL/DAL för valt avsnitt
-                string beskrivning = poddBLL.HamtaBeskrivningForAvsnitt(valdAvsnittTitel, currentUrl);
+                string beskrivning = await poddBLL.HamtaBeskrivningForAvsnittAsync(valdAvsnittTitel, currentUrl);
 
                 // Visa beskrivningen i textBoxBeskrivning
                 richTextBox.Text = beskrivning;
@@ -279,7 +279,7 @@ namespace PoddApp
 
         }
 
-        private void listBoxAvsnitt_SelectedIndexChanged(object sender, EventArgs e)
+        private async void listBoxAvsnitt_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Kontrollera om ett avsnitt är valt
             if (listBoxAvsnitt.SelectedItem != null)
@@ -295,7 +295,7 @@ namespace PoddApp
         }
 
                 // Hämta beskrivningen från BLL/DAL för valt avsnitt
-                string beskrivning = poddBLL.HamtaBeskrivningForAvsnitt(valdAvsnittTitel, currentUrl); // Se till att metoden är korrekt definierad
+                string beskrivning = await poddBLL.HamtaBeskrivningForAvsnittAsync(valdAvsnittTitel, currentUrl); // Se till att metoden är korrekt definierad
 
                 // Visa beskrivningen i textBoxBeskrivning
                 richTextBox.Text = beskrivning;
