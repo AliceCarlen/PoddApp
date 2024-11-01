@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -88,7 +89,7 @@ namespace PoddApp
                     ));
                 }
 
-                poddDAL.SparaPoddarTillXML();
+                poddDAL.SparaPoddarTillXML(poddar);
 
             }
             catch (Exception ex)
@@ -250,11 +251,19 @@ namespace PoddApp
             }));
             }
         }
-
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            poddDAL.SparaPoddarTillXML();
+            // Hämta alla poddar innan vi sparar dem
+            List<PoddInfo> poddar = poddDAL.HämtaAllaPoddar();
+
+            // Skicka listan med poddar till metoden för att spara
+            poddDAL.SparaPoddarTillXML(poddar);
         }
+
+        //private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        //{
+        //    poddDAL.SparaPoddarTillXML();
+        //}
 
         private void textBoxBeskrivning_TextChanged(object sender, EventArgs e)
         {
@@ -306,8 +315,41 @@ namespace PoddApp
         {
 
         }
+
+        private void buttonTaBortPodd_Click(object sender, EventArgs e)
+
+        {
+            if (listViewPoddar.SelectedItems.Count > 0)
+            {
+                // Hämta den valda podden från ListView
+                PoddInfo valdPodd = (PoddInfo)listViewPoddar.SelectedItems[0].Tag;
+
+                // Anropa TaBortPodd-metoden med poddnamnet
+                try
+                {
+                    poddDAL.TaBortPoddFrånXML(valdPodd.EgetNamn); // Skicka poddnamnet som en string
+
+                    // Ta bort podden från ListView
+                    listViewPoddar.Items.Remove(listViewPoddar.SelectedItems[0]);
+                    MessageBox.Show("Podd raderad från biblioteket");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Fel vid borttagning: {ex.Message}");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Välj en podd att radera");
+            }
+        }
+        
+       
     }
-}
+
+    }
+    
+
 
 
 

@@ -12,11 +12,11 @@ using System.ServiceModel.Syndication;
 
 namespace PoddApp
 {
-    public class PoddBLL : iFeedManager 
+    public class PoddBLL : iFeedManager
     {
         private PoddDAL poddDAL;
 
-            public PoddBLL() : base()//Skapar referens från poddDal-lagret. Fält
+        public PoddBLL() : base()//Skapar referens från poddDal-lagret. Fält
         {
             poddDAL = new PoddDAL();
         }
@@ -38,7 +38,7 @@ namespace PoddApp
             return avsnitt.Select(a => a.AvsnittTitel).ToList(); // Returnera en lista med avsnitttitlar
         }
 
-        public async Task <FeedInfo> HamtaPoddInfoAsync(string url)
+        public async Task<FeedInfo> HamtaPoddInfoAsync(string url)
         {
             return await poddDAL.HamtaPoddInfoAsync(url);
         }
@@ -51,7 +51,6 @@ namespace PoddApp
             // Om avsnittet hittas, returnera dess beskrivning
             return avsnitt?.Beskrivning ?? "Beskrivning ej tillgänglig.";
         }
-
     }
 
    
