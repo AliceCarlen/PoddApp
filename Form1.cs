@@ -78,7 +78,7 @@ namespace PoddApp
 
                 foreach (var podd in poddar)
                 {
-                    listViewPoddar.Items.Add(new ListViewItem(new[]
+                    var item = new ListViewItem(new[]
                     {
                         podd.EgetNamn,
                         podd.Titel,
@@ -86,7 +86,9 @@ namespace PoddApp
                         podd.Kategori,
                         podd.Url
                     }
-                    ));
+                    );
+                    item.Tag = podd;
+                    listViewPoddar.Items.Add(item);
                 }
 
                 poddDAL.SparaPoddarTillXML(poddar);
@@ -322,15 +324,17 @@ namespace PoddApp
             if (listViewPoddar.SelectedItems.Count > 0)
             {
                 // Hämta den valda podden från ListView
-                PoddInfo valdPodd = (PoddInfo)listViewPoddar.SelectedItems[0].Tag;
-
+                ListViewItem selectedItem = listViewPoddar.SelectedItems[0];
                 // Anropa TaBortPodd-metoden med poddnamnet
+                if (selectedItem.Tag is PoddInfo valdPodd)
+
+                
                 try
                 {
                     poddDAL.TaBortPoddFrånXML(valdPodd.EgetNamn); // Skicka poddnamnet som en string
 
                     // Ta bort podden från ListView
-                    listViewPoddar.Items.Remove(listViewPoddar.SelectedItems[0]);
+                    listViewPoddar.Items.Remove(selectedItem);
                     MessageBox.Show("Podd raderad från biblioteket");
                 }
                 catch (Exception ex)
