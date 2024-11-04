@@ -63,12 +63,6 @@ namespace PoddApp
             string egetNamn = textBoxEgetNamn.Text;
             string kategori = comboBoxKategori.SelectedItem?.ToString();
 
-            //kontrollera att kategori har valts
-            //if (string.IsNullOrEmpty(kategori))
-            //{
-            //    MessageBox.Show("Vänligen välj en kategori");
-            //    return;
-            //}
             try
             {
                 Validering.ValideraUrl(url);
@@ -182,7 +176,7 @@ namespace PoddApp
         private void buttonLaggTillKategori_Click(object sender, EventArgs e)
         {
             string nyKategori = textBoxHanteraKategori.Text.Trim(); //trim tar bort oönskade mellanslag 
-            //if (!string.IsNullOrEmpty(nyKategori))
+          
             try
             {
                 Validering.ValideraNyKategori(nyKategori);
@@ -192,10 +186,6 @@ namespace PoddApp
                 textBoxHanteraKategori.Clear(); //rensar textbox efter att vi lagt till kategorin
             }
 
-            //else
-            //{
-            //    MessageBox.Show("Ange en kategori.");
-            //}
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
@@ -207,7 +197,6 @@ namespace PoddApp
             string gammalKategori = listBoxRedigerakategorier.SelectedItem.ToString();
             string nyKategori = textBoxHanteraKategori.Text; // Textbox där användaren skriver in det nya namnet
 
-            //if (!string.IsNullOrEmpty(gammalKategori) && !string.IsNullOrEmpty(nyKategori))
             try
             {
                 Validering.ValideraValdKategori(gammalKategori);
@@ -216,13 +205,9 @@ namespace PoddApp
                 kategoriManager.AndraKategori(gammalKategori, nyKategori); // Anropa metoden i BLL-lagret
                 listBoxRedigeraKategorierFyll(); // Uppdatera listboxen
                 textBoxHanteraKategori.Clear(); // Rensa textfältet
-                FyllKategoriComboBox();
-                //metod för att fylla filtrera cb
+                FyllKategoriComboBox();//metod för att fylla filtrera cb
             }
-            //else
-            //{
-            //    MessageBox.Show("Vänligen välj en kategori och ange ett nytt namn.");
-            //}
+           
             catch (Exception ex)
             { 
                 MessageBox.Show(ex.Message); 
@@ -233,7 +218,7 @@ namespace PoddApp
         private void buttonTaBort_Click(object sender, EventArgs e)
         {
             string kategoriAttTaBort = listBoxRedigerakategorier.SelectedItem?.ToString(); // Hämta den valda kategorin
-            //if (!string.IsNullOrEmpty(kategoriAttTaBort))
+            
             try
 
             {
@@ -252,10 +237,7 @@ namespace PoddApp
                     listBoxRedigeraKategorierFyll(); //uppdatera listan efter borttag
                 }
             }
-            //else
-            //{
-            //    MessageBox.Show("Vänligen välj en kategori att ta bort.");
-            //}
+           
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
@@ -279,7 +261,7 @@ namespace PoddApp
                 // Lägg till avsnitt i listbox
                 foreach (var avsnittItem in avsnitt)
                 {
-                    listBoxAvsnitt.Items.Add(avsnittItem); // Anta att avsnittItem är en sträng med avsnittsinformation
+                    listBoxAvsnitt.Items.Add(avsnittItem); 
                 }
 
                
@@ -347,12 +329,6 @@ namespace PoddApp
                 // Hämta valt avsnittets titel
                 string valdAvsnittTitel = listBoxAvsnitt.SelectedItem.ToString();
 
-                // Kontrollera att currentUrl är korrekt
-                //if (string.IsNullOrEmpty(currentUrl) || !Uri.IsWellFormedUriString(currentUrl, UriKind.Absolute))
-                //{
-                //    MessageBox.Show("Den angivna URL:n är ogiltig.");
-                //    return;
-                //}
                 try
                 {
                     Validering.ValideraUrl(currentUrl);
@@ -360,7 +336,7 @@ namespace PoddApp
 
 
                     // Hämta beskrivningen från BLL/DAL för valt avsnitt
-                    string beskrivning = await poddBLL.HamtaBeskrivningForAvsnittAsync(valdAvsnittTitel, currentUrl); // Se till att metoden är korrekt definierad
+                    string beskrivning = await poddBLL.HamtaBeskrivningForAvsnittAsync(valdAvsnittTitel, currentUrl); 
 
                     // Visa beskrivningen i textBoxBeskrivning
                     richTextBox.Text = beskrivning;
@@ -397,7 +373,7 @@ namespace PoddApp
             if (result == DialogResult.Yes)
             {
                 // Ta bort podden från XML
-                poddDAL.TaBortPoddFrånXML(poddInfo.Url); // Du kan använda URL eller en annan identifierare
+                poddDAL.TaBortPoddFrånXML(poddInfo.Url); 
 
                 // Ta bort den valda podden från ListView
                 listViewPoddar.Items.Remove(selectedItem);

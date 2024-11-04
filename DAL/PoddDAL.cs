@@ -24,7 +24,7 @@ namespace PoddApp
             poddar = LasInPoddarFranXML(); // Ladda in poddar från XML när objektet skapas
         }
 
-        /*private List<PoddInfo> poddar = new List<PoddInfo>();*/ //Lista för att lagra poddar
+      
 
         public async Task<PoddInfo> HamtaPoddInfoAsync(string url)
         {
@@ -246,10 +246,10 @@ namespace PoddApp
         public void TaBortPoddFrånXML(string url)
         {
             // Ladda in poddar från XML
-            List<PoddInfo> poddar = HämtaAllaPoddar(); // Denna metod bör hämta poddar från XML
+            List<PoddInfo> poddar = HämtaAllaPoddar(); 
 
             // Hitta podden som ska tas bort
-            var poddAttTaBort = poddar.FirstOrDefault(p => p.Url == url); // Använd URL eller annan identifierare
+            var poddAttTaBort = poddar.FirstOrDefault(p => p.Url == url); 
 
             if (poddAttTaBort != null)
             {
