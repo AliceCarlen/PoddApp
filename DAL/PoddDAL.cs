@@ -106,40 +106,6 @@ namespace PoddApp
             return avsnitt;
         }
 
-
-        //synkron metod för att hämta PoddInfo från en URL
-        //public PoddInfo HamtaPoddInfo(string url)
-        //{
-        //    try
-        //    {
-        //        using (XmlReader xmlReader = XmlReader.Create(url))
-        //        {
-        //            SyndicationFeed feed = SyndicationFeed.Load(xmlReader);
-        //            return new PoddInfo
-        //            {
-        //                Titel = feed.Title.Text,
-        //                AntalAvsnitt = feed.Items.Count()
-        //            };
-        //        }
-        //    }
-
-        //    catch (WebException ex)
-        //    {
-        //        throw new Exception("Kunde inte nå URL: " + ex.Message);
-        //    }
-        //    catch (UriFormatException)
-        //    {
-        //        throw new Exception("Felaktig URL-format. Vänligen kontrollera URL:en.");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception($"Fel vid hämtning av poddar: {ex.Message}");
-        //    }
-        //}
-
-
-
-
         // Metod för att hämta poddar från en URL
         public async Task<List<PoddInfo>> HamtaPoddarURL(string url, string egetNamn, string kategori)
         {

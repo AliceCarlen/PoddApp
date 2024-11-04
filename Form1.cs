@@ -64,13 +64,16 @@ namespace PoddApp
             string kategori = comboBoxKategori.SelectedItem?.ToString();
 
             //kontrollera att kategori har valts
-            if (string.IsNullOrEmpty(kategori))
-            {
-                MessageBox.Show("Vänligen välj en kategori");
-                return;
-            }
+            //if (string.IsNullOrEmpty(kategori))
+            //{
+            //    MessageBox.Show("Vänligen välj en kategori");
+            //    return;
+            //}
             try
             {
+                Validering.ValideraUrl(url);
+                Validering.ValideraValdKategori(kategori);
+
                 await poddDAL.HamtaPoddarURL(url, egetNamn, kategori);
 
                 listViewPoddar.Items.Clear();
@@ -92,6 +95,10 @@ namespace PoddApp
                 }
 
                 poddDAL.SparaPoddarTillXML(poddar);
+
+                textBoxUrl.Clear();
+                textBoxEgetNamn.Clear();
+
 
             }
             catch (Exception ex)
@@ -175,16 +182,23 @@ namespace PoddApp
         private void buttonLaggTillKategori_Click(object sender, EventArgs e)
         {
             string nyKategori = textBoxHanteraKategori.Text.Trim(); //trim tar bort oönskade mellanslag 
-            if (!string.IsNullOrEmpty(nyKategori))
+            //if (!string.IsNullOrEmpty(nyKategori))
+            try
             {
+                Validering.ValideraNyKategori(nyKategori);
+
                 kategoriManager.LaggTillKategori(nyKategori); //anropa metod i BLL-lagret
                 listBoxRedigeraKategorierFyll(); //fyller listboxen igen för att se den nya kategorin
                 textBoxHanteraKategori.Clear(); //rensar textbox efter att vi lagt till kategorin
             }
 
-            else
+            //else
+            //{
+            //    MessageBox.Show("Ange en kategori.");
+            //}
+            catch (Exception ex)
             {
-                MessageBox.Show("Ange en kategori.");
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -193,17 +207,25 @@ namespace PoddApp
             string gammalKategori = listBoxRedigerakategorier.SelectedItem.ToString();
             string nyKategori = textBoxHanteraKategori.Text; // Textbox där användaren skriver in det nya namnet
 
-            if (!string.IsNullOrEmpty(gammalKategori) && !string.IsNullOrEmpty(nyKategori))
+            //if (!string.IsNullOrEmpty(gammalKategori) && !string.IsNullOrEmpty(nyKategori))
+            try
             {
+                Validering.ValideraValdKategori(gammalKategori);
+                Validering.ValideraNyKategori(nyKategori);
+                
                 kategoriManager.AndraKategori(gammalKategori, nyKategori); // Anropa metoden i BLL-lagret
                 listBoxRedigeraKategorierFyll(); // Uppdatera listboxen
                 textBoxHanteraKategori.Clear(); // Rensa textfältet
                 FyllKategoriComboBox();
                 //metod för att fylla filtrera cb
             }
-            else
-            {
-                MessageBox.Show("Vänligen välj en kategori och ange ett nytt namn.");
+            //else
+            //{
+            //    MessageBox.Show("Vänligen välj en kategori och ange ett nytt namn.");
+            //}
+            catch (Exception ex)
+            { 
+                MessageBox.Show(ex.Message); 
             }
         }
       
@@ -211,9 +233,12 @@ namespace PoddApp
         private void buttonTaBort_Click(object sender, EventArgs e)
         {
             string kategoriAttTaBort = listBoxRedigerakategorier.SelectedItem?.ToString(); // Hämta den valda kategorin
-            if (!string.IsNullOrEmpty(kategoriAttTaBort))
+            //if (!string.IsNullOrEmpty(kategoriAttTaBort))
+            try
 
             {
+                Validering.ValideraValdKategori(kategoriAttTaBort);
+
                 DialogResult result = MessageBox.Show(
                     $"Är du säker på att du vill ta bort kategorin \"{kategoriAttTaBort}\"?",
                    "Bekräfta borttagning",
@@ -227,9 +252,13 @@ namespace PoddApp
                     listBoxRedigeraKategorierFyll(); //uppdatera listan efter borttag
                 }
             }
-            else
+            //else
+            //{
+            //    MessageBox.Show("Vänligen välj en kategori att ta bort.");
+            //}
+            catch (Exception ex)
             {
-                MessageBox.Show("Vänligen välj en kategori att ta bort.");
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -318,18 +347,28 @@ namespace PoddApp
                 // Hämta valt avsnittets titel
                 string valdAvsnittTitel = listBoxAvsnitt.SelectedItem.ToString();
 
-                 // Kontrollera att currentUrl är korrekt
-        if (string.IsNullOrEmpty(currentUrl) || !Uri.IsWellFormedUriString(currentUrl, UriKind.Absolute))
-        {
-            MessageBox.Show("Den angivna URL:n är ogiltig.");
-            return;
-        }
+                // Kontrollera att currentUrl är korrekt
+                //if (string.IsNullOrEmpty(currentUrl) || !Uri.IsWellFormedUriString(currentUrl, UriKind.Absolute))
+                //{
+                //    MessageBox.Show("Den angivna URL:n är ogiltig.");
+                //    return;
+                //}
+                try
+                {
+                    Validering.ValideraUrl(currentUrl);
 
-                // Hämta beskrivningen från BLL/DAL för valt avsnitt
-                string beskrivning = await poddBLL.HamtaBeskrivningForAvsnittAsync(valdAvsnittTitel, currentUrl); // Se till att metoden är korrekt definierad
 
-                // Visa beskrivningen i textBoxBeskrivning
-                richTextBox.Text = beskrivning;
+
+                    // Hämta beskrivningen från BLL/DAL för valt avsnitt
+                    string beskrivning = await poddBLL.HamtaBeskrivningForAvsnittAsync(valdAvsnittTitel, currentUrl); // Se till att metoden är korrekt definierad
+
+                    // Visa beskrivningen i textBoxBeskrivning
+                    richTextBox.Text = beskrivning;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
 

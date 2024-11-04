@@ -29,9 +29,6 @@ namespace PoddApp.DAL
                 Directory.CreateDirectory(kategorierPath);
             }
         }
-
-
-
         public List<string> HamtaKategorier() //returnerar en lista med kategorier
         {
             if (!File.Exists(KategoriFil))
@@ -67,8 +64,6 @@ namespace PoddApp.DAL
                 serializer.Serialize(fs, kategorier);
             }
         }
-
-    
 
     public void AndraKategori(string gammalKategori, string nyKategori)
 

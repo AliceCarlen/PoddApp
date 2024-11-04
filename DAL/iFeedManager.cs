@@ -17,12 +17,7 @@ namespace PoddApp
         Task<string> HamtaBeskrivningForAvsnittAsync(string avsnittTitel, string url);
     }
 
-    //{
-    //    List<string> HamtaPoddar(string url, string egetNamn, string kategori);
-    //    List<string> HamtaAvsnittForPodd(string poddTitel, string url);
-    //    FeedInfo HamtaPoddInfo(string url);
-    //    string HamtaBeskrivningForAvsnitt(string avsnittTitel, string url);
-    //}
+   
 }
 
 

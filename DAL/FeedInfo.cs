@@ -8,12 +8,12 @@ namespace PoddApp.DAL
 {
     public abstract class FeedInfo
     {
-        public string Titel { get; set; }
-        public string EgetNamn { get; set; }
+        public virtual string Titel { get; set; }
+        public virtual string EgetNamn { get; set; }
 
-        public string Url { get; set; }
+        public virtual string Url { get; set; }
 
-        public string Kategori { get; set; }
+        public virtual string Kategori { get; set; }
 
         public abstract List<string> HamtaInnehall();
     }
