@@ -152,7 +152,7 @@
             this.buttonAndra.Location = new System.Drawing.Point(1292, 797);
             this.buttonAndra.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonAndra.Name = "buttonAndra";
-            this.buttonAndra.Size = new System.Drawing.Size(84, 36);
+            this.buttonAndra.Size = new System.Drawing.Size(93, 36);
             this.buttonAndra.TabIndex = 9;
             this.buttonAndra.Text = "Ändra";
             this.buttonAndra.UseVisualStyleBackColor = true;
@@ -298,7 +298,7 @@
             // 
             this.buttonTaBortPodd.Location = new System.Drawing.Point(429, 154);
             this.buttonTaBortPodd.Name = "buttonTaBortPodd";
-            this.buttonTaBortPodd.Size = new System.Drawing.Size(96, 38);
+            this.buttonTaBortPodd.Size = new System.Drawing.Size(118, 38);
             this.buttonTaBortPodd.TabIndex = 25;
             this.buttonTaBortPodd.Text = "Ta bort";
             this.buttonTaBortPodd.UseVisualStyleBackColor = true;

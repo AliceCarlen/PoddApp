@@ -11,15 +11,20 @@ using System.ServiceModel.Syndication;
 using PoddApp.DAL;
 using System.Net;
 using System.Windows.Forms.VisualStyles;
+using System.Windows.Forms;
 
 namespace PoddApp
 {
     public class PoddDAL
     {
+        private List<PoddInfo> poddar;
 
-        private List<PoddInfo> poddar = new List<PoddInfo>(); //Lista för att lagra poddar
+        public PoddDAL() // Konstruktorn för PoddDAL
+        {
+            poddar = LasInPoddarFranXML(); // Ladda in poddar från XML när objektet skapas
+        }
 
-        //Asynkron metod för att hämta PoddInfo från en URL
+        /*private List<PoddInfo> poddar = new List<PoddInfo>();*/ //Lista för att lagra poddar
 
         public async Task<PoddInfo> HamtaPoddInfoAsync(string url)
         {
@@ -36,8 +41,11 @@ namespace PoddApp
                         AntalAvsnitt = feed.Items.Count()
                     };
 
-                }
-            }
+                    {
+                    }
+                     }}
+
+
 
             catch (WebException ex)
             {
@@ -100,34 +108,34 @@ namespace PoddApp
 
 
         //synkron metod för att hämta PoddInfo från en URL
-        public PoddInfo HamtaPoddInfo(string url)
-        {
-            try
-            {
-                using (XmlReader xmlReader = XmlReader.Create(url))
-                {
-                    SyndicationFeed feed = SyndicationFeed.Load(xmlReader);
-                    return new PoddInfo
-                    {
-                        Titel = feed.Title.Text,
-                        AntalAvsnitt = feed.Items.Count()
-                    };
-                }
-            }
+        //public PoddInfo HamtaPoddInfo(string url)
+        //{
+        //    try
+        //    {
+        //        using (XmlReader xmlReader = XmlReader.Create(url))
+        //        {
+        //            SyndicationFeed feed = SyndicationFeed.Load(xmlReader);
+        //            return new PoddInfo
+        //            {
+        //                Titel = feed.Title.Text,
+        //                AntalAvsnitt = feed.Items.Count()
+        //            };
+        //        }
+        //    }
 
-            catch (WebException ex)
-            {
-                throw new Exception("Kunde inte nå URL: " + ex.Message);
-            }
-            catch (UriFormatException)
-            {
-                throw new Exception("Felaktig URL-format. Vänligen kontrollera URL:en.");
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Fel vid hämtning av poddar: {ex.Message}");
-            }
-        }
+        //    catch (WebException ex)
+        //    {
+        //        throw new Exception("Kunde inte nå URL: " + ex.Message);
+        //    }
+        //    catch (UriFormatException)
+        //    {
+        //        throw new Exception("Felaktig URL-format. Vänligen kontrollera URL:en.");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception($"Fel vid hämtning av poddar: {ex.Message}");
+        //    }
+        //}
 
 
 
@@ -163,11 +171,26 @@ namespace PoddApp
             return poddar; // Returnera listan med poddar
         }
 
+        // Metod för att hämta poddar från en URL
+        
 
         public List<PoddInfo> HämtaAllaPoddar()
         {
 
             return poddar; // Metod för att hämta den aktuella listan av poddar
+        }
+
+        //Metodöverlagring för att hämta alla poddar, men baserat på kategori
+        public List<PoddInfo> HamtaAllaPoddar(string kategori)
+        {
+            // Om kategori är null eller tom, returnera alla poddar
+            if (string.IsNullOrEmpty(kategori))
+            {
+                return poddar;
+            }
+
+            // Annars, filtrera poddar baserat på den angivna kategorin
+            return poddar.Where(p => p.Kategori.Equals(kategori, StringComparison.OrdinalIgnoreCase)).ToList();
         }
 
         public void SparaPoddarTillXML(List<PoddInfo> poddar)
@@ -187,17 +210,17 @@ namespace PoddApp
             string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             string poddFilPath = Path.Combine(desktopPath, "poddar.xml");
 
-            if (File.Exists(poddFilPath))
+            if (!File.Exists(poddFilPath))
+            {
+                return new List<PoddInfo>(); // Om filen inte finns, returnera en tom lista
+            }
+
+            using (FileStream fs = new FileStream(poddFilPath, FileMode.Open))
             {
                 XmlSerializer serializer = new XmlSerializer(typeof(List<PoddInfo>));
-                using (FileStream fs = new FileStream(poddFilPath, FileMode.Open))
-                {
-                    poddar = (List<PoddInfo>)serializer.Deserialize(fs);
-                }
+                return (List<PoddInfo>)serializer.Deserialize(fs);
             }
-            return poddar;
         }
-
 
         public async Task<List<AvsnittInfo>> HamtaAvsnittRSS(string url)
         {
@@ -254,27 +277,32 @@ namespace PoddApp
              .ToList();
         }
 
-        public void TaBortPoddFrånXML(string poddNamn)
+        public void TaBortPoddFrånXML(string url)
         {
-            // Ladda in befintliga poddar från XML
-            List<PoddInfo> poddar = LasInPoddarFranXML();
+            // Ladda in poddar från XML
+            List<PoddInfo> poddar = HämtaAllaPoddar(); // Denna metod bör hämta poddar från XML
 
-            // Hitta och ta bort podden
-            var poddToRemove = poddar.FirstOrDefault(p => p.EgetNamn.Equals(poddNamn, StringComparison.OrdinalIgnoreCase));
-            if (poddToRemove != null)
+            // Hitta podden som ska tas bort
+            var poddAttTaBort = poddar.FirstOrDefault(p => p.Url == url); // Använd URL eller annan identifierare
+
+            if (poddAttTaBort != null)
             {
-                poddar.Remove(poddToRemove);
-                // Spara tillbaka till XML
+                poddar.Remove(poddAttTaBort); // Ta bort podden från listan
+
+                // Spara tillbaka listan till XML
                 SparaPoddarTillXML(poddar);
             }
             else
             {
-                throw new Exception($"Podd med namnet '{poddNamn}' hittades inte.");
+                throw new Exception("Podden kunde inte hittas.");
             }
         }
 
+
     }
+
 }
+
 
 
 

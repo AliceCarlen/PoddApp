@@ -20,16 +20,16 @@ namespace PoddApp
         {
             poddDAL = new PoddDAL();
         }
-
-        public async Task<List<string>> HamtaPoddarAsync(String url, string egetNamn, string kategori) //metod för att hämta poddar från URL 
+        public async Task<List<PoddInfo>> HamtaPoddarAsync(string url, string egetNamn, string kategori)
         {
-
             // Anropa DAL-metoden för att hämta poddar och returnera resultatet
             var poddar = await poddDAL.HamtaPoddarURL(url, egetNamn, kategori);
-            // Om du vill returnera titlarna som en lista av strängar, kan du skapa en lista
-            return poddar.Select(p => p.Titel).ToList();
 
+            // Returnera hela listan av PoddInfo-objekt
+            return poddar; // Se till att poddar är av typ List<PoddInfo>
         }
+
+        
 
         public async Task<List<string>> HamtaAvsnittForPoddAsync(string poddTitel, string url)
         {

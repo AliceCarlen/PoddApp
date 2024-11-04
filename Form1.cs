@@ -124,8 +124,29 @@ namespace PoddApp
 
         private void comboBoxFiltreraKategori_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // Hämta den valda kategorin
+            string valdKategori = comboBoxFiltreraKategori.SelectedItem?.ToString();
 
+            // Hämta poddar baserat på vald kategori från DAL
+            List<PoddInfo> poddar = poddDAL.HamtaAllaPoddar(valdKategori);
+
+            // Uppdatera listViewPoddar
+            listViewPoddar.Items.Clear();
+            foreach (var podd in poddar)
+            {
+                var item = new ListViewItem(new[]
+                {
+            podd.EgetNamn,
+            podd.Titel,
+            podd.AntalAvsnitt.ToString(),
+            podd.Kategori,
+            podd.Url
+        });
+                item.Tag = podd;
+                listViewPoddar.Items.Add(item);
+            }
         }
+
 
         private void FiltreraKategorierComboBox() //metod som filtrerar kategoirer. Använder samma metoder i BLL som FyllKategoriComboBox gör.
         {
@@ -169,20 +190,23 @@ namespace PoddApp
 
         private void buttonAndra_Click(object sender, EventArgs e)
         {
-            string gammalKategori = listBoxRedigerakategorier.SelectedItem?.ToString(); // Hämta den valda kategorin
-            string nyKategori = textBoxHanteraKategori.Text.Trim(); // Hämta det nya namnet
+            string gammalKategori = listBoxRedigerakategorier.SelectedItem.ToString();
+            string nyKategori = textBoxHanteraKategori.Text; // Textbox där användaren skriver in det nya namnet
 
             if (!string.IsNullOrEmpty(gammalKategori) && !string.IsNullOrEmpty(nyKategori))
             {
                 kategoriManager.AndraKategori(gammalKategori, nyKategori); // Anropa metoden i BLL-lagret
                 listBoxRedigeraKategorierFyll(); // Uppdatera listboxen
                 textBoxHanteraKategori.Clear(); // Rensa textfältet
+                FyllKategoriComboBox();
+                //metod för att fylla filtrera cb
             }
             else
             {
                 MessageBox.Show("Vänligen välj en kategori och ange ett nytt namn.");
             }
         }
+      
 
         private void buttonTaBort_Click(object sender, EventArgs e)
         {
@@ -262,10 +286,6 @@ namespace PoddApp
             poddDAL.SparaPoddarTillXML(poddar);
         }
 
-        //private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        //{
-        //    poddDAL.SparaPoddarTillXML();
-        //}
 
         private void textBoxBeskrivning_TextChanged(object sender, EventArgs e)
         {
@@ -318,41 +338,45 @@ namespace PoddApp
 
         }
 
-        private void buttonTaBortPodd_Click(object sender, EventArgs e)
-
-        {
-            if (listViewPoddar.SelectedItems.Count > 0)
+      private void buttonTaBortPodd_Click(object sender, EventArgs e)
+{
+            if (listViewPoddar.SelectedItems.Count == 0) // Kontrollera om något objekt är valt
             {
-                // Hämta den valda podden från ListView
-                ListViewItem selectedItem = listViewPoddar.SelectedItems[0];
-                // Anropa TaBortPodd-metoden med poddnamnet
-                if (selectedItem.Tag is PoddInfo valdPodd)
-
-                
-                try
-                {
-                    poddDAL.TaBortPoddFrånXML(valdPodd.EgetNamn); // Skicka poddnamnet som en string
-
-                    // Ta bort podden från ListView
-                    listViewPoddar.Items.Remove(selectedItem);
-                    MessageBox.Show("Podd raderad från biblioteket");
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Fel vid borttagning: {ex.Message}");
-                }
+                MessageBox.Show("Vänligen välj en podd att ta bort.");
+                return;
             }
-            else
+
+            var selectedItem = listViewPoddar.SelectedItems[0]; // Hämta det valda objektet
+            var poddInfo = (PoddInfo)selectedItem.Tag; // Anta att du har sparat PoddInfo som Tag
+
+            DialogResult result = MessageBox.Show(
+                $"Är du säker på att du vill ta bort podden \"{poddInfo.Titel}\"?",
+                "Bekräfta borttagning",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
+
+            if (result == DialogResult.Yes)
             {
-                MessageBox.Show("Välj en podd att radera");
+                // Ta bort podden från XML
+                poddDAL.TaBortPoddFrånXML(poddInfo.Url); // Du kan använda URL eller en annan identifierare
+
+                // Ta bort den valda podden från ListView
+                listViewPoddar.Items.Remove(selectedItem);
             }
         }
+
         
-       
-    }
+
+
+
 
     }
+
+}
+
     
+
+
 
 
 

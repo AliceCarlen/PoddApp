@@ -10,7 +10,8 @@ namespace PoddApp
 {
     public interface iFeedManager
     {
-        Task<List<string>> HamtaPoddarAsync(string url, string egetNamn, string kategori);
+       
+        Task<List<PoddInfo>> HamtaPoddarAsync(string url, string egetNamn, string kategori);
         Task<List<string>> HamtaAvsnittForPoddAsync(string poddTitel, string url);
         Task<FeedInfo> HamtaPoddInfoAsync(string url);
         Task<string> HamtaBeskrivningForAvsnittAsync(string avsnittTitel, string url);
